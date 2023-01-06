@@ -1,0 +1,43 @@
+<section class="">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Edit Product</h2>
+          <form action="/admin/edit_product/<%=editproduct._id %>" method="POST" enctype="multipart/form-data">
+            <label for="">Prodcut Name</label>
+            <input type="text" name="productname" class="form-control" value="<%=editproduct.productname%>" />
+            <label for="">Description</label>
+            <input type="text" name="description" class="form-control" value="<%=editproduct.description%>" />
+  
+            <label for="">Price</label>
+            <input type="text" name="price" class="form-control" value="<%=editproduct.price%>" />
+  
+            
+            <label for="cars">Category</label>
+           
+            <select class="form-select" name="category" id="cars">
+              <% categoryres.forEach(function(categoryres) { %>
+              <option value="<%=categoryres.category %>"><%=categoryres.categoryname %></option>
+              <% } )%>
+            </select>
+          
+            <label for="">Quantity</label>
+            <input type="text" name="quantity" class="form-control" value="<%=editproduct.quantity%>" />
+  
+            <label for="">Image</label>
+            <img src="/images/<%=editproduct.image%>" alt="" style="width:100px;height:auto" id="imageView">
+            <input type="file" name="fileEdit" class="form-control" onchange="changeImage(event)" />
+  
+            <button type="submit" class="btn btn-info mt-4">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    function changeImage(event){
+      document.getElementById('imageView').src=URL.createObjectURL(event.target.files[0])
+    }
+  </script>
