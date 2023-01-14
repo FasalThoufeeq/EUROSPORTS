@@ -1,8 +1,11 @@
 module.exports={
     adminAuthentication:(function(req,res,next){
+
+
         if(req.session.adminloggedIn){
-          next()
+           next()
         }else{
+         console.log("authentication");
           res.render('admin/login',{layout:'adminlayout'})
         }
        
@@ -11,7 +14,7 @@ module.exports={
         if(req.session.loggedIn){
           next()
         }else{
-          res.render('user/login')
+          res.redirect('/login')
         }
        
       })

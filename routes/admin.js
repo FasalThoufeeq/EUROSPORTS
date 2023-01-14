@@ -15,13 +15,13 @@ var router = express.Router();
 
 router.get("/",authentication.adminAuthentication,admincontroller.getDashboard);
 
-router.get("/login",authentication.adminAuthentication,admincontroller.getAdminLogin);
+router.get("/login",admincontroller.getAdminLogin);
 
 router.post("/login",admincontroller.postAdminLogin);
 
-router.get("/logout",authentication.adminAuthentication,admincontroller.getAdminLogout);
+router.get("/logout",admincontroller.getAdminLogout);
 
-router.use(authentication.adminAuthentication)
+router.use(authentication.adminAuthentication);
 
 router.get("/view_users",adminUser.getUserView);
 

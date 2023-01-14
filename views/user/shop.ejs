@@ -21,11 +21,11 @@
                 <span class="zoom-icon"><i class="fi-rs-search"></i></span> -->
 
 
-                <!-- MAIN SLIDES -->
+<!-- MAIN SLIDES -->
 
 
 
-                <!-- <div class="product-image-slider">
+<!-- <div class="product-image-slider">
                   <figure class="border-radius-10">
                     <img
                       src="assets/imgs/shop/product-16-2.jpg"
@@ -72,10 +72,10 @@
 
 
 
-                <!-- THUMBNAILS -->
+<!-- THUMBNAILS -->
 
 
-                <!-- <div class="slider-nav-thumbnails pl-15 pr-15">
+<!-- <div class="slider-nav-thumbnails pl-15 pr-15">
                   <div>
                     <img
                       src="assets/imgs/shop/thumbnail-3.jpg"
@@ -123,11 +123,11 @@
 
 
 
-              <!-- End Gallery -->
+<!-- End Gallery -->
 
 
 
-              <!-- <div class="social-icons single-share">
+<!-- <div class="social-icons single-share">
                 <ul class="text-grey-5 d-inline-block">
                   <li><strong class="mr-10">Share this:</strong></li>
                   <li class="social-facebook">
@@ -295,11 +295,11 @@
 
 
 
-              <!-- Detail Info -->
+<!-- Detail Info -->
 
 
-              
-            <!-- </div>
+
+<!-- </div>
           </div>
         </div>
       </div>
@@ -395,11 +395,11 @@
 
 
 
-          <!-- mobile menu start -->
+<!-- mobile menu start -->
 
 
 
-          <!-- <nav>
+<!-- <nav>
             <ul class="mobile-menu">
               <li class="menu-item-has-children">
                 <span class="menu-expand"></span><a href="/">Home</a>
@@ -419,7 +419,7 @@
                 ><a href="blog-category-fullwidth.html">Contact</a>
               </li> -->
 
-              <!-- <li class="menu-item-has-children">
+<!-- <li class="menu-item-has-children">
                 <span class="menu-expand"></span><a href="#">Language</a>
                 <ul class="dropdown">
                   <li><a href="#">English</a></li>
@@ -428,16 +428,16 @@
                   <li><a href="#">Spanish</a></li>
                 </ul>
               </li> -->
-            <!-- </ul>
+<!-- </ul>
           </nav> -->
 
 
 
-          <!-- mobile menu end -->
+<!-- mobile menu end -->
 
 
 
-        <!-- </div>
+<!-- </div>
         <div class="mobile-header-info-wrap mobile-header-border">
           <div class="single-mobile-header-info mt-30">
             <a href="page-contact.html"> Our location </a>
@@ -1396,11 +1396,11 @@
 
 
 
-            <!--pagination-->
+<!--pagination-->
 
 
 
-            <!-- <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+<!-- <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-start">
                   <li class="page-item active">
@@ -1444,10 +1444,10 @@
             </div> -->
 
 
-            <!-- Fillter By Price -->
+<!-- Fillter By Price -->
 
 
-            <!-- <div class="sidebar-widget price_range range mb-30">
+<!-- <div class="sidebar-widget price_range range mb-30">
               <div class="widget-header position-relative mb-20 pb-10">
                 <h5 class="widget-title mb-10">Fill by price</h5>
                 <div class="bt-1 border-color-1"></div>
@@ -1548,11 +1548,11 @@
             </div> -->
 
 
-            <!-- Product sidebar Widget -->
+<!-- Product sidebar Widget -->
 
 
 
-            <!-- <div
+<!-- <div
               class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10"
             >
               <div class="widget-header position-relative mb-20 pb-10">
@@ -1640,10 +1640,10 @@
           <div class="col-lg-5"> -->
 
 
-            <!-- Subscribe Form -->
+<!-- Subscribe Form -->
 
 
-            <!-- <form class="form-subcriber d-flex wow fadeIn animated">
+<!-- <form class="form-subcriber d-flex wow fadeIn animated">
               <input
                 type="email"
                 class="form-control bg-white font-small"
@@ -1655,11 +1655,11 @@
             </form> -->
 
 
-            <!-- End Subscribe Form -->
+<!-- End Subscribe Form -->
 
 
 
-          <!-- </div>
+<!-- </div>
         </div>
       </div>
     </section>
@@ -1787,11 +1787,11 @@
   </footer> -->
 
 
-  <!-- Preloader Start -->
+<!-- Preloader Start -->
 
 
 
-  <!-- <div id="preloader-active">
+<!-- <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
       <div class="preloader-inner position-relative">
         <div class="text-center">
@@ -1815,16 +1815,16 @@
 
 <body>
 
-  
+
   <!-- Quick view -->
- 
+
   <main class="main">
-      
-      <section class="mt-50 mb-50">
-          <div class="container">
-              <div class="row flex-row-reverse">
-                  <div class="col-lg-9">
-                      <!-- <div class="shop-product-fillter">
+
+    <section class="mt-50 mb-50">
+      <div class="container">
+        <div class="row flex-row-reverse">
+          <div class="col-lg-9">
+            <!-- <div class="shop-product-fillter">
                           <div class="totall-product">
                               <p> We found <strong class="text-brand">688</strong> items for you!</p>
                           </div>
@@ -1874,89 +1874,134 @@
 
 
 
-                      <div class="row product-grid-3">
-                          <% response.forEach(function(response,index) { %>
+            <div class="row product-grid-3">
+              <% response.forEach(function(response,index) { %>
 
-                          <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+                <div class="col-lg-4 col-md-4 col-12 col-sm-6">
 
 
-                              <div class="product-cart-wrap mb-30">
-                                  <div class="product-img-action-wrap">
-                                      <div class="product-img product-img-zoom">
-                                          <a href="shop-product-right.html">
-                                              <a href="/product_single_view/<%=response._id %>"><img class="default-img" src="/images/<%= response.image %>" alt=""></a>
-                                              <!-- <img class="hover-img" src="assets/imgs/shop/product-7-1.jpg" alt=""> -->
-                                          </a>
-                                      </div>
-                                      <div class="product-action-1">
-                                          <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal">
-<i class="fi-rs-search"></i></a>
-                                          <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                          <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                      </div>
-                                      <div class="product-badges product-badges-position product-badges-mrg">
-                                          
-                                      </div>
-                                  </div>
-                                  <div class="product-content-wrap">
-                                      <div class="product-category">
-                                          <a href="shop-grid-right.html"><%=response.category%></a>
-                                      </div>
-                                      <h2><a href="shop-product-right.html"><%=response.productname%></a></h2>
-                                      <div class="rating-result" title="90%">
-                                          <span>
-                                              <span>95%</span>
-                                          </span>
-                                      </div>
-                                      <div class="product-price">
-                                          <span>₹<%=response.price%></span>
-                                      
-                                      </div>
-                                      <div class="product-action-1 show">
-                                          <a aria-label="Add To Cart" class="action-btn hover-up" href="/add_to_cart/<%=response._id %>"><i class="fi-rs-shopping-bag-add"></i></a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                           <% }) %>
+                  <div class="product-cart-wrap mb-30">
+                    <div class="product-img-action-wrap">
+                      <div class="product-img product-img-zoom">
+                        <a href="shop-product-right.html">
+                          <a href="/product_single_view/<%=response._id %>"><img class="default-img"
+                              src="/images/<%= response.image %>" alt=""></a>
+                          <!-- <img class="hover-img" src="assets/imgs/shop/product-7-1.jpg" alt=""> -->
+                        </a>
                       </div>
-                      <!--pagination-->
-                      <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
-                          <nav aria-label="Page navigation example">
-                              <ul class="pagination justify-content-start">
-                                  <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                  <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                                  <li class="page-item"><a class="page-link" href="#">16</a></li>
-                                  <li class="page-item"><a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a></li>
-                              </ul>
-                          </nav>
+                      <div class="product-action-1">
+                        <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal"
+                          data-bs-target="#quickViewModal">
+                          <i class="fi-rs-search"></i></a>
+                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i
+                            class="fi-rs-heart"></i></a>
+                        <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i
+                            class="fi-rs-shuffle"></i></a>
                       </div>
+                      <div class="product-badges product-badges-position product-badges-mrg">
+
+                      </div>
+                    </div>
+                    <div class="product-content-wrap">
+                      <div class="product-category">
+                        <a href="shop-grid-right.html">
+                          <%=response.category%>
+                        </a>
+                      </div>
+                      <h2><a href="shop-product-right.html">
+                          <%=response.productname%>
+                        </a></h2>
+                      <div class="rating-result" title="90%">
+                        <span>
+                          <span>95%</span>
+                        </span>
+                      </div>
+                      <div class="product-price">
+                        <span>₹<%=response.price%></span>
+
+                      </div>
+                      <div class="product-action-1 show">
+                        <!-- <a aria-label="Add To Cart" class="action-btn hover-up" href="/add_to_cart/<%=response._id %>"><i class="fi-rs-shopping-bag-add"></i></a> -->
+                        <button aria-label="Add To Cart" class="action-btn hover-up"
+                          onclick="addToCart('<%-response._id%>')"><i class="fi-rs-shopping-bag-add"></i></button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-lg-3 primary-sidebar sticky-sidebar">
-                      <div class="widget-category mb-30">
-                          <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
-                          <ul class="categories">
-                              <li><a href="shop-grid-right.html">Football</a></li>
-                              <li><a href="shop-grid-right.html">Cricket</a></li>
-                              <li><a href="shop-grid-right.html">Volleyball</a></li>
-                              <li><a href="shop-grid-right.html">Cycling</a></li>
-                              <!-- <li><a href="shop-grid-right.html">Beauty</a></li>
+                </div>
+                <% }) %>
+            </div>
+            <!--pagination-->
+            <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                  <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                  <li class="page-item"><a class="page-link" href="#">02</a></li>
+                  <li class="page-item"><a class="page-link" href="#">03</a></li>
+                  <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                  <li class="page-item"><a class="page-link" href="#">16</a></li>
+                  <li class="page-item"><a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="col-lg-3 primary-sidebar sticky-sidebar">
+            <div class="widget-category mb-30">
+              <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
+              <ul class="categories">
+                <li><a href="shop-grid-right.html">Football</a></li>
+                <li><a href="shop-grid-right.html">Cricket</a></li>
+                <li><a href="shop-grid-right.html">Volleyball</a></li>
+                <li><a href="shop-grid-right.html">Cycling</a></li>
+                <!-- <li><a href="shop-grid-right.html">Beauty</a></li>
                               <li><a href="shop-grid-right.html">Jewelry & Watch</a></li>
                               <li><a href="shop-grid-right.html">Accessories</a></li> -->
-                          </ul>
-                      </div>
-                      
-                      
-                  </div>
-              </div>
+              </ul>
+            </div>
+
+
           </div>
-      </section>
+        </div>
+      </div>
+    </section>
   </main>
-  
+
 </body>
 
 
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-grid-left.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:43 GMT -->
+
 </html>
+
+
+<script>
+  function addToCart(proId) {
+    $.ajax({
+      url: "/add_to_cart/" + proId,
+      method: "get",
+      success: (response) => {
+        // alert(response)
+        if (response.update) {
+          let cartCount = $("#cartCount").html()
+          cartCount = parseInt(cartCount) + 1
+          $("#cartCount").html(cartCount)
+        }
+        Toastify({
+          text: "Added to cart",
+          duration: 3000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: true,
+          gravity: "bottom", // `top` or `bottom`
+          position: "center", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+          onClick: function () { } // Callback after click
+        }).showToast();
+      }
+
+    })
+  }
+</script>

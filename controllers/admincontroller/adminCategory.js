@@ -10,6 +10,7 @@ module.exports={
 
     //get category
     getCategory:(req,res)=>{
+
         let admin=req.session.admin
         let adminStatus=req.session.adminloggedIn
         categoryHelper.viewCategory().then((response)=>{

@@ -1,18 +1,36 @@
 const { response } = require("../../app")
 const userHelpers=require("../../helpers/userHelpers/userHelpers")
+const userProductHelpers=require("../../helpers/userHelpers/productHelpers")
 const schema=require("../../models/connection")
 const otp=require("../../otp/otp")
 const client=require("twilio")(otp.accountSID,otp.authToken)
 
 let loggedInStatus,blockedStatus,emailStatus,number;
 
+const a=()=>{
+
+}
 
 module.exports={
+    a,
 
 
     //get Home
-    getUserHome: (req,res)=>{
-        res.render("user/user")
+    getUserHome: async(req,res)=>{
+        let cartCount=null
+
+        if(req.session.user){
+
+            cartCount= await userProductHelpers.getCartCount(req.session.user._id)
+
+            // console.log(cartCount);
+
+            res.render("user/user",{cartCount})
+
+        }else{
+
+            res.render("user/user")
+        }
     },
 
 
@@ -169,10 +187,25 @@ module.exports={
             }
         })
     },
+
+
+
+    // post address
+
+    postAddress:(req,res)=>{
+        console.log(req.session.user._id);
+        userHelpers.postAddress(req.body,req.session.user._id).then((response)=>{
+
+            console.log(response);
+
+            res.redirect("/checkout_page")
+
+        })
+    }
         
     
 
-
+ 
 
  
     

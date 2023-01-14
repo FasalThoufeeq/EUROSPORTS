@@ -162,7 +162,7 @@
         </div>
     </div>
     <main class="main">
-        <div class="page-header breadcrumb-wrap">
+        <!-- <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
@@ -170,7 +170,7 @@
                     <span></span> Your Cart
                 </div>
             </div>
-        </div>
+        </div> -->
         <section class="mt-50 mb-50">
             <div class="container">
                 <div class="row">
@@ -178,9 +178,11 @@
                         <div class="table-responsive">
                             <table class="table shopping-summery text-center clean">
                                 <thead>
+
                                     <tr class="main-heading">
                                         <th scope="col">Image</th>
                                         <th scope="col">Name</th>
+                                        <th scope="col">Category</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Subtotal</th>
@@ -188,27 +190,41 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <% cartList.forEach(function(cartList,index){%>
                                     <tr>
-                                        <td class="image product-thumbnail"><img src="assets/imgs/shop/product-1-2.jpg" alt="#"></td>
+
+                                        <% cartList.merged.forEach(function(cartList){%>
+
+                                        <td class="image product-thumbnail"><img src="/images/<%=cartList.image%>" alt="#"></td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="shop-product-right.html">J.Crew Mercantile Women's Short-Sleeve</a></h5>
-                                            <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
-                                            </p>
+                                            <h5 class="product-name"><a href="shop-product-right.html"><%=cartList.productname%></a></h5>
+                                            <p class="font-xs"><%=cartList.description%></p>
                                         </td>
-                                        <td class="price" data-title="Price"><span>$65.00 </span></td>
+                                        <td class="category" data-title=""><span><%=cartList.category%></span></td>
+                                        <td class="price" data-title="Price"><span>₹<%=cartList.price%></span></td>
                                         <td class="text-center" data-title="Stock">
+
+
+                                        <%}) %>
+
+
                                             <div class="detail-qty border radius  m-auto">
-                                                <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                                <span class="qty-val">1</span>
-                                                <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
+                                                
+                                                <div><button class="change-quantity" onclick="changeQuantity('<%=cartList._id%>','<%=cartList.products%>','<%=user._id%>',1)" style="background-color: #20B6CA; border: none; width: 40PX;">+</button></div>
+                                                
+                                                <span class="qty-val" id="<%=cartList.products %>"><%=cartList.quantity%></span>
+
+                                                <div><button id="less" class="change-quantity" onclick="changeQuantity('<%=cartList._id%>','<%=cartList.products%>','<%=user._id%>',-1)" style="background-color: #20B6CA; border: none; width: 40PX;">-</button></div>
                                             </div>
                                         </td>
                                         <td class="text-right" data-title="Cart">
-                                            <span>$65.00 </span>
+                                            
+                                            <span id=<%=cartList.products%>>₹<%=subTotal[index].subTotal%></span>
                                         </td>
-                                        <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                        <td class="action" data-title="Remove"><a href="#" class="text-muted" onclick="removeCart('<%=cartList._id%>','<%=cartList.products%>')"><i class="fi-rs-trash"></i></a></td> 
+                                        <!-- <button onclick="removeCart('<%=cartList._id%>','<%=cartList.products%>')">delete</button> -->
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="image"><img src="assets/imgs/shop/product-11-2.jpg" alt="#"></td>
                                         <td class="product-des">
                                             <h5 class="product-name"><a href="shop-product-right.html">Amazon Essentials Women's Tank</a></h5>
@@ -226,8 +242,8 @@
                                             <span>$150.00 </span>
                                         </td>
                                         <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
-                                    </tr>
-                                    <tr>
+                                    </tr> -->
+                                    <!-- <tr>
                                         <td class="image"><img src="assets/imgs/shop/product-6-1.jpg" alt="#"></td>
                                         <td class="product-des">
                                             <h5 class="product-name"><a href="shop-product-right.html">Amazon Brand - Daily Ritual Women's Jersey </a></h5>
@@ -235,8 +251,9 @@
                                             </p>
                                         </td>
                                         <td class="price" data-title="Price"><span>$62.00 </span></td>
-                                        <td class="text-center" data-title="Stock">
-                                            <div class="detail-qty border radius  m-auto">
+                                        <td class="text-center" data-title="Stock"> -->
+
+                                            <!-- <div class="detail-qty border radius  m-auto">
                                                 <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
                                                 <span class="qty-val">1</span>
                                                 <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
@@ -246,22 +263,28 @@
                                             <span>$62.00 </span>
                                         </td>
                                         <td class="action" data-title="Remove"><a href="#" class="text-muted"><i class="fi-rs-trash"></i></a></td>
-                                    </tr>
+                                    </tr> -->
+
+                                    
+                                    <%}) %>
+                                   
                                     <tr>
                                         <td colspan="6" class="text-end">
                                             <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
                                         </td>
                                     </tr>
+
+
                                 </tbody>
                             </table>
                         </div>
                         <div class="cart-action text-end">
                             <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>
-                            <a class="btn "><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
+                            <a class="btn " href="/shop"><i class="fi-rs-shopping-bag mr-10"></i>Continue Shopping</a>
                         </div>
                         <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
-                            <div class="col-lg-6 col-md-12">
+                            <!-- <div class="col-lg-6 col-md-12">
                                 <div class="heading_s1 mb-3">
                                     <h4>Calculate Shipping</h4>
                                 </div>
@@ -555,7 +578,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-lg-6 col-md-12">
                                 <div class="border p-md-4 p-30 border-radius cart-totals">
                                     <div class="heading_s1 mb-3">
@@ -566,7 +589,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="cart_total_label">Cart Subtotal</td>
-                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">$240.00</span></td>
+                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand " id="SubTotal">₹<%=totalAmount%></span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Shipping</td>
@@ -574,12 +597,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cart_total_label">Total</td>
-                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">$240.00</span></strong></td>
+                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand " id="totalAmount">₹<%=totalAmount%></span></strong></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="#" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="/checkout_page" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
                                 </div>
                             </div>
                         </div>
@@ -741,3 +764,84 @@
 
 <!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:06 GMT -->
 </html>
+
+
+<script>
+
+function changeQuantity(cartId,proId,userId,count){
+
+    console.log(proId+"this is product id");
+
+    let quantity=parseInt(document.getElementById(proId).textContent)
+    count=parseInt(count)
+
+    $.ajax({
+        url:"/change_quantity",
+        method:"PUT",
+        data:{user:userId, products:proId, cart:cartId, count:count, quantity:quantity},
+        
+        success:(response)=>{
+            // alert(response)
+
+            if(response.removed==true){
+
+                alert("Do you want to remove this product from your cart ?")
+                location.reload()
+
+
+                // if(updQuantity==1){
+                //     $('#less').prop('disabled',true)
+                // }else{
+                //     $('#less').prop('disabled',false)
+                // }
+
+
+            }else{
+
+
+                updQuantity=quantity+count;
+                document.getElementById(proId).innerHTML=updQuantity
+                document.getElementById('totalAmount').innerHTML=response.totalAmount
+                
+                // console.log(subTotal);
+
+
+
+            }
+
+
+           
+
+        }
+    })
+
+}
+
+
+
+
+// remove cart
+
+function removeCart(cart,product){
+
+    $.ajax({
+        url:"/remove_cart",
+        method:"DELETE",
+        data:{cart,product},
+        success:(response)=>{
+
+            
+            console.log(response.removed);
+
+            if(response.removed==true){
+
+                alert("Do you want to remove this product from your cart")
+                location.reload()
+
+            }
+
+        }
+    })
+}
+
+</script>

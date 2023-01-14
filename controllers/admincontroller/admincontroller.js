@@ -45,7 +45,7 @@ module.exports={
     postAdminLogin:(req,res)=>{
         // console.log(req.body);
         if(req.body.email==adminCredential.email && req.body.password==adminCredential.password){
-            req.session.adminloggedIn=true;
+            req.session.adminloggedIn = true;
 
             adminStatus=req.session.adminloggedIn
 
@@ -57,11 +57,10 @@ module.exports={
         }
     },
 
-
     //get admin logout
     getAdminLogout:(req,res)=>{
-        req.session.adminloggedIn=false;
-        adminStatus=req.session.adminloggedIn
+        req.session.adminloggedIn = false;
+        adminStatus=req.session.adminloggedIn 
         res.render("admin/login",{layout:"adminLayout",adminStatus})
     }
 }
