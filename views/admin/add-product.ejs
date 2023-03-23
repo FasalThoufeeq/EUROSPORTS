@@ -1,0 +1,53 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<section class="app-content content">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Add Product</h2>
+          <form
+            action="/admin/add-products"
+            method="post"
+            enctype="multipart/form-data"
+            
+          >
+            <label for="">Prodcut Name</label>
+            <input type="text" name="productname" class="form-control" />
+            <label for="">Description</label>
+            <input type="text" name="description" class="form-control" />
+  
+            <label for="">Price</label>
+            <input type="text" name="price" class="form-control" />
+  
+            <label for="">Quantity</label>
+            <input type="text" name="quantity" class="form-control" />
+  
+            <label for="">Category</label>
+            
+            <select class="form-select form-control" name="category" id="cars">
+            <% categorys.forEach(function(categorys) { %>
+              <option><%=categorys.categoryname %></option>
+            <% } )%>
+            </select>
+            <br>
+              
+  
+            <label for="">Image</label>
+            <input type="file" name="image" multiple="required" class="form-control" />
+            
+
+            <!-- <label for="">Image</label>
+            <input type="file" name="file" class="form-control" />
+
+            <label for="">Image</label>
+            <input type="file" name="file" class="form-control" />
+
+            <label for="">Image</label>
+            <input type="file" name="file" class="form-control" /> -->
+  
+            <button type="submit" class="btn btn-info mt-4">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  </body>

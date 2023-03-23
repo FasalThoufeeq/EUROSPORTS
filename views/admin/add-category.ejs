@@ -1,0 +1,58 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<section class="app-content content">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Add Category</h2>
+          <form
+            action="/admin/add-category"
+            method="post"
+          >
+            <label for="">Category Name</label>
+            <input type="text" name="categoryname" class="form-control" />
+            <button type="submit" class="btn btn-info mt-4">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Table section -->
+  <section w-50 mx-auto>
+    <div class="card-body">
+      <div class="row w-50 mt-5 mx-auto">
+        <div class="table-responsive">
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="align-middle" scope="col">No</th>
+                  <th class="align-middle" scope="col">Category Name</th>
+                  <th class="align-middle" scope="col">Option</th>
+                </tr>
+              </thead>
+              <tbody>
+  
+                <% category.forEach(function(category,index) { %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= category.categoryname%></td>
+    
+                    <td>
+                      <a href="/admin/edit-category/<%= category._id %>" class="btn btn-xs btn-dark"> Edit</a>
+                      <a href="/admin/delete-category/<%= category._id %>" class="btn btn-xs btn-dark" onclick="return confirm('Are you sure, do you want to delete category called <%= category.categoryname %> ?')"> Delete</a>
+                    </td>
+                  </tr>
+                  <% }) %>
+  
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- table-responsive end// -->
+      </div>
+    </div>
+  </section>
+  
+  </body>
+
+  

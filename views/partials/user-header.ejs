@@ -1,0 +1,143 @@
+<% if (locals.adminloginpage==true) { %> 
+    
+  <% } else { %> 
+
+ 
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__option">
+            <div class="offcanvas__links">
+                <a href="#">Sign in</a>
+                <a href="#">FAQs</a>
+            </div>
+            <div class="offcanvas__top__hover">
+                <span>Usd <i class="arrow_carrot-down"></i></span>
+                <ul>
+                    <li>USD</li>
+                    <li>EUR</li>
+                    <li>USD</li>
+                </ul>
+            </div>
+        </div>
+        <div class="offcanvas__nav__option">
+            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            <div class="price">$0.00</div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+        <div class="offcanvas__text">
+            <p>Free shipping, 30-day return or refund guarantee.</p>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+                            <p>Free shipping, 30-day return or refund guarantee.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__hover">
+                                <span>Usd <i class="arrow_carrot-down"></i></span>
+                                <ul>
+                                    <li>USD</li>
+                                    <li>EUR</li>
+                                    <li>USD</li>
+                                </ul>
+                            </div>
+                            <div class="header__top__links">
+                                
+                                <a href="#">FAQ</a>
+                                
+                                    <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Account
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                      <button class="dropdown-item" type="button">Action</button>
+                                      <button class="dropdown-item" type="button">Another action</button>
+                                      <button class="dropdown-item" type="button">Something else here</button>
+                                    </div> -->
+                                    
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            <% if (locals.loggedInStatus==true) { %>
+                                                <%= locals.username %>
+                                              <% } else { %>
+                                                Account
+                                              <% } %>
+        
+                                        </button>
+                                        <div class="dropdown-menu" style="width: 150px;">
+                                          <% if (locals.loggedInStatus==true) { %>
+                                            <a class="dropdown-item" href="#" style="color: black;">See Profile</a>
+                                            <a class="dropdown-item" href="/logout" style="color: black;">Logout</a>
+                                          <% } else { %>
+                                            <a class="dropdown-item" href="/login" style="color: black;">Login</a>
+                                          <% } %>
+                                          
+                                        
+                                        </div>
+                                    
+                                  
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="data:image/png;base64,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" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li class="active"><a href="/">Home</a></li>
+                            <li><a href="/shop/">Shop</a></li>
+                            <li><a href="/cart">Cart</a>
+                                <!-- <ul class="dropdown">
+                                    <li><a href="./about.html">About Us</a></li>
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul> -->
+                            </li>
+                            <!-- <li><a href="./blog.html">Blog</a></li> -->
+                            <li><a href="/orders">Orders</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
+                        <a href="/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <div class="price">$0.00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <% } %> 

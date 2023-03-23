@@ -1,0 +1,74 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<section class="app-content content">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Users List</h2>
+          <form
+            action="/admin/add_sub"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Table section -->
+  <section  mx-auto class="app-content content">
+    <div class="card-body">
+      <div class="row mt-5 mx-auto">
+        <div class="table-responsive">
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="align-middle" scope="col">No:</th>
+                  <th class="align-middle" scope="col">User Name</th>
+                  <th class="align-middle" scope="col">Email</th>
+                  <th class="align-middle" scope="col">Phone Number</th>
+                  <th class="align-middle" scope="col">Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach(function(users,index) { %>
+                
+                <tr>
+                  <td> <%=index+1 %> </td>
+                  <td><%= users.name %></td> 
+                  <td><%= users.email %></td>
+                  <td><%= users.phone %></td>
+                
+                  <td>
+                      <%if(users.blocked){%>
+
+                        
+                        <a href ="/admin/unblock_users/<%=users._id %>" class="btn btn-info" >UnBlock</a>
+                 
+                        
+                      <%}
+                      else{%>
+                        <a href ="/admin/block_users/<%=users._id %>" class="btn btn-dark" onclick="return confirm('are you want to block <%=users.name%>?')">Block</a>
+
+              
+                      <%}
+                        %>
+
+
+
+                  </td>
+    
+                 
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- table-responsive end// -->
+      </div>
+    </div>
+  </section>
+</body>
+  

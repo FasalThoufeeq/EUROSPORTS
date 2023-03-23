@@ -1,0 +1,79 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns"></body>
+<section class="app-content content">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Product List</h2>
+          <form
+            action="/admin/add_sub"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Table section -->
+  <section  mx-auto class="app-content content">
+    <div class="card-body">
+      <div class="row mt-5 mx-auto">
+        <div class="table-responsive">
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="align-middle" scope="col">No:</th>
+                  <th class="align-middle" scope="col">product Name</th>
+                  <th class="align-middle" scope="col">Description</th>
+                  <th class="align-middle" scope="col">price</th>
+                  <th class="align-middle" scope="col">Category</th>
+                  <th class="align-middle" scope="col">Quantity</th>
+                  <th class="align-middle" scope="col">Image</th>
+                  <th class="align-middle" scope="col">option</th>
+                  <th class="align-middle" scope="col">list/unlist</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach(function(products,index) { %>
+                <tr>
+                  <td><%=index+1 %> </td>
+                  <td><%=products.productname%></td> 
+                  <td><%=products.description%></td> 
+                  <td><%=products.price%></td> 
+                  <td><%=products.catDetails[0].categoryname%></td> 
+                  <td><%=products.quantity%></td> 
+                
+                  <td><img src='<%= products.image[0] %>' alt="" style="width:50px;height:50px";></td>
+                  <td>
+                        <a href ="/admin/edit-product/<%=products._id %>"  class="btn btn-info">Edit</a>
+                  </td>
+                  <td>
+                    <%if(products.list){%>
+
+                      <a href ="/admin/unlist-product/<%=products._id %>" class="btn btn-dark" onclick="return confirm('are you want to block <%=products.name%>?')">Unlist</a>
+               
+                      
+                    <%}
+                    else{%>
+                      <a href ="/admin/list-product/<%=products._id %>" class="btn btn-info" >List</a>
+
+            
+                    <%}
+                      %>
+
+                  </td>
+    
+                 
+                </tr>
+          <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- table-responsive end// -->
+      </div>
+    </div>
+  </section>
+  </body>

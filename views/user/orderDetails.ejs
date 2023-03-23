@@ -1,0 +1,163 @@
+
+<section class=" mb-5">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-10 col-xl-8">
+          <div class="card" style="border-radius: 10px;">
+            <div class="card-header px-4 py-5" style="height: 50px; background-color: black; border-radius: 10px;">
+            
+              
+              <h5 class="text-muted mb-0" style="color: white;">Thanks for your Order, <span style="color: white; height: 50px;"><%=address.fname%></span>!</h5>
+            </div>
+            <p style="display: none;" id="lapzcart;" >stringify</p>
+            <input type="hidden" id ="ssss"value="stringify">
+  
+                
+
+            
+                  <button class="btn btn-suucess" onclick="invoiceCreator()">Download invoice</button>
+    
+                
+            <div class="card-body p-4">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="lead fw-normal mb-0" style="color: black;font-weight: bolder;">Order Details </p>
+                <p class="small text-muted mb-0" style="font-weight: bolder;">Order Id : <%=orderDetails[0].orders._id%></p>
+                <p class="small text-muted mb-0" style="font-weight: bolder;">Ordered Date:<%= getDate(orderDetails[0].orders.orderedDate)%></p>
+              </div>
+              <div class="card shadow-0 border mb-4">
+                <% products?.forEach(function(product,index) { %>
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="<%= product.image[0] %>"
+                        class="img-fluid" alt="Phone">
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0"><%= product.productName %></p>
+                    </div>
+                    
+                    
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small"><%= product.quantity %></p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                      <p class="text-muted mb-0 small">₹<%= product.price %></p>
+                    </div>
+                 
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        <p class="text-muted mb-0 small">₹<%= multipliedTotal[index] %></p>
+                    </div>
+                    
+
+                  </div>
+
+                  <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                
+                </div>
+                <% }) %>
+
+
+</div>
+              <div class="d-flex justify-content-between pt-2">
+                <p class="fw-bold mb-0">Address Details</p>
+                <p class="text-muted mb-0"><span class="fw-bold me-4"></span></p>
+              </div>
+              
+             
+              
+  
+              
+                <div class="d-flex justify-content-between pt-2">
+                  <p class="fw-bold mb-0"><%=address.fname%></p>
+                  <%if(orderDetails[0].orders.orderStatus=='Ordered'){ %>                                                          
+                  <p class="text-muted mb-0"><span class="fw-bold me-4" ><span>Order Status</span>:   <span style="color:green; font-weight: bolder;"><%=orderDetails[0].orders.orderStatus%></span> </p>
+                  <%} else if(orderDetails[0].orders.orderStatus=='Delivered') {%>                                                        
+                  <p class="text-muted mb-0"><span class="fw-bold me-4" ><span>Order Status</span>:   <span style="color: blueviolet;font-weight: bolder"><%=orderDetails[0].orders.orderStatus%></span> </p>
+                  <%} else  {%>                  
+
+                                                                              
+                  <p class="text-muted mb-0"><span class="fw-bold me-4" ><span>Order Status</span>:   <span style="color: red;font-weight: bolder"><%=orderDetails[0].orders.orderStatus%></span> </p>
+                  <%} %>                                                       
+                  <%if(orderDetails[0].orders.orderStatus=='Ordered'){ %>                                                              
+                <button  class="btn btn-primary text-center" style="background: rgb(0, 0, 0); height:3rem" onclick="cancelorder('<%=orderDetails[0].orders._id%>')">Cancel Order</button>
+                <%} %>
+                <%if(orderDetails[0].orders.orderStatus=='Delivered'){ %>                                                                  
+                <button onclick="returnOrder('<%=orderDetails[0].orders._id%>')"  class="btn btn-primary text-center" style="background: #088178; height:3rem" >Return Order</button>
+                <%} %>                                                                   
+
+
+</div>
+                <div class="d-flex justify-content-between pt-2">
+                  <p class="fw-bold mb-0"><%=address.apartment%></p>
+                  <p class="text-muted mb-0"><span class="fw-bold me-4"></span></p>
+                </div>
+                <div class="d-flex justify-content-between pt-2">
+                  <p class="fw-bold mb-0"><%=address.street%></p>
+                  <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> ₹<%=orderDetails[0].orders.totalAmount%></p>
+                </div>
+                <div class="d-flex justify-content-between pt-2">
+                  <p class="fw-bold mb-0"><%=address.city%></p>
+                  <p class="text-muted mb-0"><span class="fw-bold me-4"></span></p>
+                </div>
+                <div class="d-flex justify-content-between pt-2">
+                  <p class="fw-bold mb-0"><%=address.pincode%></p>
+                  <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges: </span>Free</p>
+                </div>
+        
+            
+                 
+                
+               
+               
+              
+  
+              
+            </div>
+            <div class="card-footer border-0 px-4 py-5"
+              style="background-color: rgb(0, 0, 0); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; height:5px">
+              <h5 class="d-flex align-items-center justify-content-end text-black text-uppercase mb-0" style="color: white;">Total
+                paid: ₹<%=orderDetails[0].orders.totalAmount%><span class="h2 mb-0 ms-2"></span></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row d-flex align-items-center">
+     
+      <div class="col-md-10">
+        
+       
+      </div>
+    </div> -->
+  </section>
+
+
+  <script>
+    function cancelorder(orderId){
+
+        $.ajax({  
+        url:'/cancelOrder/' + orderId,
+        method:'put',
+        success:(response)=>{
+        if(response){
+            location.reload()
+        }
+
+        }
+    })
+    }
+
+
+    function returnOrder(orderId){
+      $.ajax({
+        url:'/returnOrder/'+orderId,
+        method:'put',
+        success:(response)=>{
+          if(response){
+            location.reload()
+          }
+        }
+      })
+    }
+  </script>

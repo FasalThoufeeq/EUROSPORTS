@@ -1,0 +1,158 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<section class="content-main app-content content mt-5">
+    <div class="content-header ml-3">
+      <div>
+        <h2 class="content-title card-title">Order details</h2>
+        <p>Details for Order ID: <%=order[0].orders._id%></p>
+      </div>
+    </div>
+    <div class="card ml-2 mr-2">
+      <header class="card-header">
+        <div class="row align-items-center">
+          <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+            <span>
+              <i class="bi bi-calendar-date-fill"></i>
+              <b style="color: #088178;"><%=getDate(order[0].orders.orderedDate)%></b>
+            </span>
+            <br />
+            <small class="text-muted">Order ID: <%=order[0].orders._id%></small>
+          </div>
+          <div  class="col-lg-6 col-md-6 ms-auto text-md-end">
+            <form
+              style="float: right;"
+              action="/admin/order-details/<%=order[0].orders._id%>"
+              method="POST"
+            >
+              <select
+              style="width: 100px;height: 35px; border: none; background-color: rgba(0,0,0,.03);"
+                class="form-select d-inline-block mb-lg-0 mb-15 mw-200"
+                name="status"
+                id="status"
+                
+              >
+                <!-- <option>Change status</option> -->
+                <option>Success</option>
+                <option>Shipped</option>
+                <option>Delivered</option>
+              </select>
+  
+              <button style="background-color: #088178;width: 100px; height: 40px;font-weight: bold;"  type="submit" class="btn btn-dark">UPDATE</button>
+            </form>
+          </div>
+        </div>
+      </header>
+      <!-- card-header end// -->
+      <div class="card-body">
+        <div class="row mb-50 mt-20 order-info-wrap">
+          <div class="col-md-4">
+            <article class="icontext align-items-start">
+              <span class="icon icon-sm rounded-circle bg-primary-light">
+                <i class="text-primary material-icons md-person"></i>
+              </span>
+              <div class="text">
+                <h6 style="font-weight: bolder;color:#088178" class="mb-1">Customer</h6>
+                <p class="mb-1">
+                  <%=order[0].orders.shippingAddress.fname%> <br />
+                  <%=order[0].orders.shippingAddress.email%> <br />
+                  <%=order[0].orders.shippingAddress.mobile%>
+                </p>
+                <a href="#"></a>
+              </div>
+            </article>
+          </div>
+          <!-- col// -->
+          <div class="col-md-4">
+            <article class="icontext align-items-start">
+              <span class="icon icon-sm rounded-circle bg-primary-light">
+                <i class="text-primary material-icons md-local_shipping"></i>
+              </span>
+              <div class="text">
+                <h6 style="font-weight: bolder;color:#088178" class="mb-1">Order info</h6>
+                <p class="mb-1">
+                  Shipping From: EUROSPORTS <br />
+                  Pay method: <%=order[0].orders.paymentMethod%><br />
+                  Payment Status: <%=order[0].orders.paymentStatus%>
+                </p>
+                <a href="#"></a>
+              </div>
+            </article>
+          </div>
+          <!-- col// -->
+          <div class="col-md-4">
+            <article class="icontext align-items-start">
+              <span class="icon icon-sm rounded-circle bg-primary-light">
+                <i class="text-primary material-icons md-place"></i>
+              </span>
+              <div class="text">
+                <h6 style="font-weight: bolder;color:#088178" class="mb-1">Deliver to</h6>
+                <p class="mb-1">
+                  <br /><%=order[0].orders.shippingAddress.apartment%>,
+                   Floor 2,<br> <%=order[0].orders.shippingAddress.street%>,
+                   <%=order[0].orders.shippingAddress.city%>,<br />
+                   <%=order[0].orders.shippingAddress.pincode%>,<br />
+                   <%=order[0].orders.shippingAddress.state%>
+                </p>
+                <a href="#"></a>
+              </div>
+            </article>
+          </div>
+          <!-- col// -->
+        </div>
+        <!-- row // -->
+        <div class="row">
+          <div class="col-lg-7">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="color: #088178;" width="40%">Product</th>
+                    <th style="color: #088178;" width="20%">Price</th>
+                    <th style="color: #088178;" width="20%">Quantity</th>
+                    <!-- <th width="20%" class="text-end">Total</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <% product.forEach(function(product) { %>
+                  <tr>
+                    <td>
+                      <a class="itemside" href="#">
+                        <div class="left"style="float: left;">
+                          <img
+                            src="<%=product.image[0]%>"
+                            width="40"
+                            height="40"
+                            class="img-xs"
+                            alt="Item"
+                          />
+                        </div>
+                        <div class="info ml-3"style="display: inline-block;"><%=product.productName%></div>
+                      </a>
+                    </td>
+                    <td><%=product.price%></td>
+                    <td><%=product.quantity%></td>
+                   
+                  </tr>
+                  <%})%>
+                </tbody>
+              </table>
+              
+  
+              <h6 style="font-weight: bolder;">AMOUNT : ₹<%=total%></h6>
+              
+  
+  
+            </div>
+            <!-- table-responsive// -->
+          </div>
+          <!-- col// -->
+          <div class="col-lg-1"></div>
+          <!-- col// -->
+        </div>
+      </div>
+      <!-- card-body end// -->
+    </div>
+    <!-- card end// -->
+  </section>
+  <!-- content-main end// -->
+</body>
+

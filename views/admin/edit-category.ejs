@@ -1,0 +1,19 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns"></body>
+<section class="app-content content">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Edit Category</h2>
+          <form
+            action="/admin/edit-category/<%= category._id %>"
+            method="post"
+          >
+            <label for="">Category Name</label>
+            <input type="text" name="editcategoryname" class="form-control" value="<%=category.categoryname %>"/>
+            <button type="submit" class="btn btn-info mt-4">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  </body>

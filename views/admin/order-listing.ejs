@@ -1,0 +1,71 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<div class="container-fluid">
+    <% if(orders.length==0){%>
+        <div class="d-flex justify-content-center">
+            <img src="data:image/png;base64,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" alt="" />
+            
+             
+          </div>
+          <%} else{%>
+    <section class="app-content content content-main container w-100 mt-5">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Order List </h2>
+            </div>
+           
+        </div>
+        <div class="card mb-4">
+        
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th># Order ID</th>
+                                <th scope="col"> User Name</th>
+                                <th scope="col">Order Date </th>
+                                <th scope="col">Order Status</th>
+                                <th scope="col">Payment status</th>
+                                <th scope="col" class="text-end"> Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.forEach(function(order) { %>
+                            <tr>
+                                   
+
+                                <td><%=order.orders._id%></td>
+                                <td><b><%=order.orders.fname%></b></td>
+            
+                                <td><%=getDate(order.orders.orderedDate)%></td>
+                               
+                                <td><span class="badge rounded-pill alert-warning"><%=order.orders.orderStatus%></span></td>
+                                <td><%=order.orders.paymentStatus%></td>
+                                <td class="text-end">
+                                    <a href="/admin/order-details/<%=order.orders._id%>" class="btn btn-dark btn-md rounded font-sm">Details</a>
+                                  
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div> <!-- table-responsive //end -->
+            </div> <!-- card-body end// -->
+        </div> <!-- card end// -->
+        <!-- <div class="pagination-area mt-15 mb-50">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-start">
+                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><i class="material-icons md-chevron_right"></i></a></li>
+                </ul>
+            </nav>
+        </div> -->
+    </section> <!-- content-main end// -->
+    
+    <%}%>
+</div>
+</body>

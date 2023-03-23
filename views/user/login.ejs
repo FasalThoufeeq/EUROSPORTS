@@ -1,0 +1,164 @@
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+  
+              <div class="mb-md-5 mt-md-4 pb-5">
+
+            <form action="/login" method="post">
+  
+                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+
+                <%if(locals.loggedInStatus==false){%>
+                    <p style="color: red" id="Invalid" class="message">
+                      Invalid Username or Password
+                    </p>
+                    <%}%> 
+                    <%if(locals.blockedStatus==true){%>
+                    <p style="color: red" id="blocked" class="message">
+                      Your Account is Blocked by Admin
+                    </p>
+                    <%}%>
+                    
+
+                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+  
+                <div class="form-outline form-white mb-4">
+                  <input type="email" id="email" class="form-control form-control-lg" name="email" placeholder="email" onkeyup="validateEmail()" />
+                  <span id="email-error" class="validation-label"></span>
+                  <!-- <label class="form-label" for="typeEmailX">Email</label> -->
+                </div>
+  
+                <div class="form-outline form-white mb-4">
+                  <input type="password" id="password" class="form-control form-control-lg" name="password" placeholder="password" onkeyup="validatePassword()"/>
+                  <span id="pass-error" class="validation-label"></span>
+                  <!-- <label class="form-label" for="typePasswordX">Password</label> -->
+                </div>
+  
+                <!-- <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
+                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="/number">Forgot password ?</a></p>
+  
+                <button class="btn btn-outline-light btn-lg px-5" type="submit" onclick="return validateForm()">Login</button>
+  
+                <!-- <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                  <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                  <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                  <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                </div> -->
+  
+              </div>
+  
+              <div>
+                <p class="mb-0">Don't have an account? <a href="/signup" class="text-white-50 fw-bold">Sign Up</a>
+                </p>
+              </div>
+            </form>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<script>
+
+  
+  var emailError = document.getElementById("email-error");
+  let passError=document.getElementById("pass-error");
+  let submitError=document.getElementById("submit-error")
+  
+  function validateEmail() {
+    
+    var email = document.getElementById("email").value;
+    var emailInput = document.getElementById("email");
+  
+    if (email.length == 0) {
+      emailError.innerHTML = "Email is required";
+      emailError.style.color = "red";
+      emailInput.style.border = "solid 2px red";
+  
+      return false;
+    }
+    if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      emailError.innerHTML = "Email invalid";
+      emailError.style.color = "red";
+      emailInput.style.border = "solid 2px red";
+  
+      return false;
+    }
+    emailError.innerHTML = "";
+    emailError.style.color = "green";
+    emailInput.style.border = "solid 2px green";
+    return true;
+  }
+  
+  function validatePassword(){
+    console.log("in validate pass");
+        
+        let password = document.getElementById("password").value;
+        let passwordInput = document.getElementById("password")
+        // let cnfrmPassword = document.getElementById("confirm_password").value;
+        // let cnfrmPasswordInput= document.getElementById("confirm_password")
+        console.log(password);
+        // console.log(cnfrmPassword);
+        
+            if(!password.match(/[a-zA-Z]/)) {
+                  passError.innerHTML = "Password must contain atleast 1 letter";
+                  passError.style.color = "red";
+                  passwordInput.style.border = "solid 2px red";
+                  return false;
+                }
+                else if (!password.match(/^.{8,}$/)) {
+                  passError.innerHTML = "Password min-length 8";
+                  passError.style.color = "red";
+                  passwordInput.style.border = "solid 2px red";
+                  return false;
+                }
+                else if (!password.match(/^(?=.*[\W_])[\w\W]/)) {
+                  passError.innerHTML = "Password must contain atleast one special character";
+                  passError.style.color = "red";
+                  passwordInput.style.border = "solid 2px red";
+                  return false;
+                }
+                else{
+                    passError.innerHTML = null
+                    passError.style.color = "green";
+                    passwordInput.style.border = "solid 2px green";
+                    return true
+        
+        
+                }
+            }
+  function validateForm() {
+    if (
+      !validateEmail()||
+      !validatePassword()
+      
+    ) {
+        submitError.style.display = "block";
+        submitError.innerHTML = "Please fix all errors to submit.";
+        submitError.style.color = "red";
+      setTimeout(function () {
+        submitError.style.display = "none";
+      }, 3000);
+      return false;
+    }
+  }
+  
+    setTimeout(function() {
+      document.querySelector('.message').style.display = 'none';
+    }, 5000);
+
+    setTimeout(function () {
+      document.getElementById("Invalid").style.display = "none";
+    }, 5000);
+  
+    setTimeout(function () {
+      document.getElementById("blocked").style.display = "none";
+    }, 5000);
+</script>  

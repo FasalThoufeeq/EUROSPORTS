@@ -1,0 +1,297 @@
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Check Out</h4>
+                    <div class="breadcrumb__links">
+                        <a href="./index.html">Home</a>
+                        <a href="./shop.html">Shop</a>
+                        <span>Check Out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        <div class="checkout__form">
+            <form action="/order" method="post">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="mb-25">
+                            <h4>Select Your Address</h4>
+                          </div>
+                          <br />
+                          <form action="/order" method="POST" id="checkout-form">
+                            
+                                <%storedAddress.address.forEach(function(address){%>
+                            <div class="mb-3">
+                              <div class="payment_option">
+                                <div
+                                
+                                  class="custome-radio"
+                                  style="
+                                    width: 35rem;
+                                    height: 19rem;
+                                    background-color: whitesmoke;
+                                    padding: 20px;
+                                    border-radius: 30px;
+                                    
+                                  "
+                                >
+                                  <input
+                                    type="radio"
+                                    id="address1"
+                                    name="address"
+                                    value="<%=address._id%>"
+                                    style="height: 15px; width: 15px"
+                                    required=""
+                                  />
+                                <div class="ml-5">
+                                  <p><%=address.fname%> <%=address.lname%></p>
+                                  <p><%=address.apartment%>, <%=address.street%>,</p>
+                                  <p>
+                                    <%=address.city%>, <%=address.district%>, <%=address.state%>
+                                  </p>
+                                    <p>pincode: <%=address.pincode%></p>
+                                    <p>phone: <%=address.mobile%></p>
+                                    <p>email: <%=address.email%></p>
+                                </div>
+                                  <br />
+                                </div>
+                              </div>
+                            </div>
+                            
+                             <%}) %>
+                            
+                  
+                            <div class="mt-3"
+                              style="
+                                width: 35rem;
+                                height: 3rem;
+                                background-color: whitesmoke;
+                                padding-top: 12px;
+                                padding-left: 15px;
+                                border-radius: 30px;
+                              "
+                            >
+                              <a href="" data-toggle="modal" data-target="#exampleModal">
+                                <h5>+ Add an address</h5>
+                              </a>
+                              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Launch demo modal
+                              </button> -->
+                            </div>
+                        <!-- <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+                        here</a> to enter your code</h6>
+                        <h6 class="checkout__title">Billing Details</h6>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Fist Name<span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Last Name<span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Country<span>*</span></p>
+                            <input type="text">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Address<span>*</span></p>
+                            <input type="text" placeholder="Street Address" class="checkout__input__add">
+                            <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Town/City<span>*</span></p>
+                            <input type="text">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Country/State<span>*</span></p>
+                            <input type="text">
+                        </div>
+                        <div class="checkout__input">
+                            <p>Postcode / ZIP<span>*</span></p>
+                            <input type="text">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout__input__checkbox">
+                            <label for="acc">
+                                Create an account?
+                                <input type="checkbox" id="acc">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p>Create an account by entering the information below. If you are a returning customer
+                            please login at the top of the page</p>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Account Password<span>*</span></p>
+                            <input type="text">
+                        </div>
+                        <div class="checkout__input__checkbox">
+                            <label for="diff-acc">
+                                Note about your order, e.g, special noe for delivery
+                                <input type="checkbox" id="diff-acc">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="checkout__input">
+                            <p>Order notes<span>*</span></p>
+                            <input type="text"
+                            placeholder="Notes about your order, e.g. special notes for delivery.">
+                        </div> -->
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="checkout__order">
+                            <h4 class="order__title">Your order</h4>
+                            <div class="checkout__order__products">Product <span>Total</span></div>
+                            <ul class="checkout__total__products">
+                                <% cartList.forEach(function(cartList,index){%>
+                                    <% cartList.product.forEach(function(cartLists){%>
+                                <li><%=index+1 %>. <%= cartLists.productname %>
+                                    
+                                    <span>₹<%=subTotal[index].subTotal%></span>
+                                    <span style="margin-right: 20px;">X<%= cartList.quantity %></span>
+                                </li>
+                                
+                                <%}) %>
+                                <%}) %>
+                            </ul>
+                            
+                            <ul class="checkout__total__all">
+                                <li>Subtotal <span>₹<%=totalAmount[0].totalAmount%></span></li>
+                                <li>Total <span>₹<%=totalAmount[0].totalAmount%></span></li>
+                            </ul>
+                            <!-- <div class="checkout__input__checkbox">
+                                <label for="acc-or">
+                                    Create an account?
+                                    <input type="checkbox" id="acc-or">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> -->
+                            <!-- <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
+                            ut labore et dolore magna aliqua.</p> -->
+                            <div class="checkout__input__checkbox">
+                                <label for="payment">
+                                    Cash On Delivery
+                                    <input type="checkbox" id="payment" name="paymentMethod" value="COD">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="checkout__input__checkbox">
+                                <label for="paypal">
+                                    Razorpay
+                                    <input type="checkbox" id="paypal" name="payment-method" value="Razorpay">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Checkout Section End -->
+
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: whitesmoke;border-radius: 10px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="color:black; font-weight: bold;">Add New Address</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="/addAddress" id="checkout-form">
+                <div class="form-group" >
+                    <input style="width: 350px; border-radius: 6px;" type="text" required="" name="fname" placeholder="First name">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" type="text" required="" name="lname" placeholder="Last name">
+                </div>
+                
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" type="text" name="apartment" required="" placeholder="Apartment">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" required="" type="text" name="street" placeholder="Street Name">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" type="text" name="city" required="" placeholder="City">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" type="text" name="district" required="" placeholder="Disctrict">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" required="" type="text" name="state" placeholder="State">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" required="" type="text" name="pincode" placeholder="Pincode">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" required="" type="text" name="mobile" placeholder="Mobile">
+                </div>
+                <div class="form-group">
+                    <input style="width: 350px; border-radius: 6px;" required="" type="text" name="email" placeholder="Email">
+                </div>
+                <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                <!-- <div class="payment_method">
+                    <p>Payment Method</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="'payment-method" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Cash On Delivery
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="'payment-method" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Bank Or UPI
+                        </label>
+                      </div>
+                  
+                </div> -->
+            
+            
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button> -->
+          <button type="submit" class="btn btn-dark" >Add Adress</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
