@@ -2,6 +2,7 @@ const db=require('../../config/connection')
 const collection=require('../../config/collections');
 const {ObjectId}=require('mongodb-legacy');
 const { resolve } = require('promise');
+const voucher_codes = require("voucher-code-generator");
 
 
 module.exports={
@@ -118,8 +119,9 @@ module.exports={
     //post edit product
     postEditProduct:(productId,editedDetails)=>{
         return new Promise((resolve, reject) => {
-            // console.log(editedDetails.category);
-            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:new ObjectId(productId)},{$set:{productname:editedDetails.productname,description:editedDetails.description,price:editedDetails.price,quantity:editedDetails.quantity,category:editedDetails.category}}).then(()=>{
+            editedDetails.price=Number(editedDetails.price)
+            editedDetails.quantity=Number(editedDetails.quantity)
+            db.get().collection(collection.PRODUCT_COLLECTION).updateOne({_id:new ObjectId(productId)},{$set:{productname:editedDetails.productname,description:editedDetails.description,price:editedDetails.price,quantity:editedDetails.quantity,category:new ObjectId(editedDetails.category)}}).then(()=>{
                 resolve()
             })
             
@@ -147,7 +149,7 @@ module.exports={
 
                 {$sort:{'orders.orderedDate':-1}}
             ]).toArray()
-            // console.log(orders);
+            console.log(orders,'asdfghjkl');
             resolve(orders)
         })
     },
@@ -172,6 +174,171 @@ module.exports={
             db.get().collection(collection.ORDER_COLLECTION).updateOne({'orders._id':new ObjectId(OrderId)},{$set:{'orders.$.orderStatus':body.status}})
             .then(()=>{
                 resolve()
+            })
+        })
+    },
+
+    postBannner:(texts)=>{
+        return new Promise((resolve, reject) => {
+
+            let bannerObj={
+                title:texts.title,
+                description:texts.description,
+                link:texts.link
+            }
+            db.get().collection(collection.BANNER_COLLECTION).insertOne(bannerObj).then((bannerDrtails)=>{
+                resolve(bannerDrtails.insertedId)
+            })
+        })
+    },
+
+    addBannerImg:(imageUrl,bannerId)=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION).updateOne({_id:new ObjectId(bannerId)},{$set:{image:imageUrl}})
+        })
+    },
+
+    getAllBanner:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION).find().toArray().then((banners)=>{
+                resolve(banners)
+            })
+        })
+    },
+
+    editBanner:(texts,bannerId)=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION).updateOne({_id:new ObjectId(bannerId)},{$set:{title:texts.title,description:texts.description,link:texts.link}}).then(()=>{
+                resolve()
+            })
+        })
+    },
+
+    productsCount:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION).find().toArray().then((products)=>{
+                resolve(products)
+            })
+        })
+    },
+
+    orderByCOD:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {$unwind:'$orders'},
+
+                {$match:{'orders.paymentMethod':'COD'}}
+            ]).toArray().then((orderByCOD)=>{
+                resolve(orderByCOD)
+            })
+        })
+    },
+
+
+    orderByRazorpay:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {$unwind:'$orders'},
+
+                {$match:{'orders.paymentMethod':'Razorpay'}}
+            ]).toArray().then((orderByRazorpay)=>{
+                resolve(orderByRazorpay)
+            })
+        })
+    },
+
+    getOrderByDate:()=>{
+        return new Promise((resolve, reject) => {
+            const startDate=new Date('2022-01-01')
+            db.get().collection(collection.ORDER_COLLECTION).find({'orders.orderedDate':{$gte:startDate}}).toArray().then((orderDate)=>{
+                resolve(orderDate)
+            })
+        })
+    },
+
+
+    getAllOrders:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {$unwind:'$orders'},
+
+                {$match:{$or:[{'orders.orderStatus':'Success'},{'orders.orderStatus':'Delivered'}]}}
+            ]).toArray().then((response)=>{
+                resolve(response)
+            })
+        })
+    },
+
+    categorys:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CATEGORY_COLLECTION).find().toArray().then((categorys)=>{
+                resolve(categorys)
+            })
+        })
+    },
+
+    generateCoupon:()=>{
+        return new Promise((resolve, reject) => {
+            try {
+                let couponCode = voucher_codes.generate({
+                  length: 6,
+                  count: 1,
+                  charset: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                  prefix: "WHITE-",
+                });
+                resolve({ status: true, couponCode: couponCode[0] });
+              } catch (err) {
+                console.log(err);
+              }
+        })
+    },
+
+    addCoupon:(data)=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.COUPON_COLLECTION).insertOne(data).then(()=>{
+                resolve({status:true})
+            })
+        })
+    },
+
+    getAllCoupon:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.COUPON_COLLECTION).find().toArray().then((coupons)=>{
+                resolve(coupons)
+            })
+        })
+    },
+
+    deleteCoupon:(couponId)=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.COUPON_COLLECTION).deleteOne({_id:new ObjectId(couponId)}).then((response)=>{
+                resolve(response)
+            })
+        })
+    },
+
+    getReport:()=>{
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {$unwind:'$orders'},
+
+                {$match:{$or:[{'orders.orderStatus':'Delivered'},{'orders.orderStatus':'Success'}]}}
+            ]).toArray().then((report)=>{
+                resolve(report)
+            })
+        })
+    },
+
+    postSalesPeriod:(body)=>{
+        return new Promise((resolve, reject) => {
+            let start=new Date(body.startdate)
+            let end=new Date(body.enddate)
+            db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {$unwind:'$orders'},
+
+                {$match:{$or:[{'orders.orderStatus':'Delivered'},{'orders.orderStatus':'Success'}],'orders.orderedDate':{$gte:start , $lte:end}}}
+            ]).toArray().then((report)=>{
+                resolve(report)
             })
         })
     }

@@ -3,6 +3,7 @@ var router = express.Router();
 const userControllers=require('../Controllers/userControllers/userControllers')
 const userProductController=require('../Controllers/userControllers/userProductControllers')
 const authentication=require('../authMiddleware/userAuth')
+const isBlock=require('../authMiddleware/blockAuth')
 
 
 /* GET users listing. */
@@ -32,6 +33,19 @@ router.get('/change-password',userControllers.getchangePass)
 
 router.post('/change-password',userControllers.postchangePass)
 
+router.get('/user-profile',authentication.userAuthentication,isBlock.isBlocked,userControllers.getProfile)
+
+router.put('/update_profile/:id',authentication.userAuthentication,isBlock.isBlocked,userControllers.updateProfile)
+
+router.post('/reset-password',authentication.userAuthentication,isBlock.isBlocked,userControllers.resetPassword)
+
+router.get('/getAddress',authentication.userAuthentication,isBlock.isBlocked,userControllers.getAddress)
+
+router.post('/post-Address',authentication.userAuthentication,isBlock.isBlocked,userControllers.postAddress)
+
+router.delete('/delete-address',authentication.userAuthentication,isBlock.isBlocked,userControllers.deleteAddress)
+
+
 
 
 router.get('/shop',userProductController.getShop)
@@ -42,29 +56,45 @@ router.get('/category-show/:id',userProductController.categoryShow)
 
 
 
-router.get("/addToCart/:id",authentication.userAuthentication,userProductController.getAddToCart)
+router.get("/addToCart/:id",authentication.userAuthentication,isBlock.isBlocked,userProductController.getAddToCart)
 
-router.get('/cart',authentication.userAuthentication,userProductController.getCart)
+router.get('/cart',authentication.userAuthentication,isBlock.isBlocked,userProductController.getCart)
 
-router.put('/change-quantity',authentication.userAuthentication,userProductController.changeQuantity)
+router.put('/change-quantity',authentication.userAuthentication,isBlock.isBlocked,userProductController.changeQuantity)
 
-router.delete('/removeCart',authentication.userAuthentication,userProductController.removeCart)
+router.delete('/removeCart',authentication.userAuthentication,isBlock.isBlocked,userProductController.removeCart)
+
+router.get('/addWishlist/:id',authentication.userAuthentication,isBlock.isBlocked,userProductController.addWishList)
+
+router.get('/get-wishlist',authentication.userAuthentication,isBlock.isBlocked,userProductController.getWishlist)
+
+router.delete('/remove-wishlist',authentication.userAuthentication,isBlock.isBlocked,userProductController.removeWishlist)
 
 
 
-router.get('/checkout',authentication.userAuthentication,userProductController.getcheckout)
+router.get('/checkout',authentication.userAuthentication,isBlock.isBlocked,userProductController.getcheckout)
 
-router.post('/addAddress',authentication.userAuthentication,userProductController.addAddress)
+router.post('/addAddress',authentication.userAuthentication,isBlock.isBlocked,userProductController.addAddress)
 
-router.post('/order',authentication.userAuthentication,userProductController.postOrder)
+router.post('/check_out',authentication.userAuthentication,isBlock.isBlocked,userProductController.postOrder)
 
-router.get('/orders',authentication.userAuthentication,userProductController.getOrders)
+router.post('/verify_payment',authentication.userAuthentication,isBlock.isBlocked,userProductController.verifyPayment)
 
-router.get('/order-details',authentication.userAuthentication,userProductController.getOrderDetails)
+router.get('/order_success',authentication.userAuthentication,isBlock.isBlocked,userProductController.orderSuccess)
 
-router.put('/cancelOrder/:id',authentication.userAuthentication,userProductController.cancelOrder)
+router.get('/orders',authentication.userAuthentication,isBlock.isBlocked,userProductController.getOrders)
 
-router.put('/returnOrder/:id',authentication.userAuthentication,userProductController.returnOrder)
+router.get('/order-details',authentication.userAuthentication,isBlock.isBlocked,userProductController.getOrderDetails)
+
+router.put('/cancelOrder/:id',authentication.userAuthentication,isBlock.isBlocked,userProductController.cancelOrder)
+
+router.put('/returnOrder/:id',authentication.userAuthentication,isBlock.isBlocked,userProductController.returnOrder)
+
+router.post('/cart',authentication.userAuthentication,isBlock.isBlocked,userProductController.postCart)
+
+router.post('/validate-coupon',authentication.userAuthentication,isBlock.isBlocked,userProductController.validateCoupon)
+
+
 
 
 

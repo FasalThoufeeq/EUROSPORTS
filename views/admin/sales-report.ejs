@@ -1,0 +1,102 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<div class="main-container app-content content ">
+    
+    <div class="d-flex justify-content-between align-items-center m-4">
+      <div class="ml-5 mr-5">
+        <form action="/admin/sales-report" method="POST">
+          <div class="mb-3">
+            <label for="startdate" class="form-label">Start Date:</label>
+            <input type="date" name="startdate" id="startdate" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="enddate" class="form-label">End Date:</label>
+            <input type="date" name="enddate" id="enddate" class="form-control">
+          </div>
+          <button style="background-color: #18334f; color: aliceblue;border: none;" class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="d-flex align-items-center mr-5">
+        <!-- <input class="form-control me-3" type="text" name="daterange" value="01/01/2022 - 12/01/2023" style="width: 200px;"> -->
+        <button type="button" class="btn btn-success me-3 "  onclick="export_data()" value="Export to excel"style="width: 150px;"><i class="fas fa-file-excel"></i> Download Excel</button>
+        <button type="button" class="btn btn-danger btn_print me-3"
+            value="Download as Pdf">Download PDF</button>
+      </div>
+    </div>
+    <table class="table table-striped ml-3 mr-5" id="container_content">
+        <% if(Details.length==0){%>
+            <div class="d-flex justify-content-center">
+              <img src="data:image/png;base64,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" alt="" />
+              
+               <!-- <h3>No Orders Available</h3> -->
+            </div>
+            <%} else{%>
+      <thead>
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">User Name</th>
+          <th scope="col">Total</th>
+          <th scope="col">Payment Method</th>
+          <th scope="col">Ordered Date</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        
+        
+        <% Details.forEach((order)=>{%>
+
+        
+        <tr>
+          <td><%=order._id%></td>
+          <td><%=order.fname%></td>
+          <td><%=order.totalAmount%></td>
+          <td><%=order.paymentMethod%></td>
+          <td><%=getDate(order.orderedDate)%></td>
+        </tr>
+        <%})%>
+    </tbody>
+    <%}%>
+</table>
+    
+  </div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-z8oDcdy0YCXeQb0q3AEq8e/vWVZvH/6UuV7x/8zUbwH6wPxx6/EjN7I1MN8WnJGZv+PluU7xJIR6aM8fMhhJ6w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<script>
+
+$(document).ready(function ($) {
+        $(document).on('click', '.btn_print', function (event) {
+            event.preventDefault();
+            console.log('................');
+            var element = document.getElementById('container_content');
+            let randomNumber = Math.floor(Math.random() * (10000000000 - 1)) + 1;
+            var opt = {
+                margin: 0,
+                filename: 'SalesReport' + randomNumber + '.pdf',
+                html2canvas: { scale: 10 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        });
+    });
+  
+  
+  
+  
+    function export_data() {
+      let data = document.getElementById('container_content');
+      var fp = XLSX.utils.table_to_book(data, { sheet: 'vishal' });
+      XLSX.write(fp, {
+        bookType: 'xlsx',
+        type: 'base64'
+      });
+      XLSX.writeFile(fp, 'test.xlsx');
+    }
+  </script>

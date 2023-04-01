@@ -1,0 +1,289 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar ml-2 mr-2" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+<section class="app-content content mt-5 ">
+    <div class="col-12 ml-2">
+      <div class="card mt-2">
+        <div class="card-header pb-0">
+          <h6>Coupon Management</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    #
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Coupon Code
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Discount Percent
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Max Discount
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Expiry
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% coupons.forEach((coupon,index)=>{ %>
+                <tr>
+                  <td
+                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                  <%- index+1 %>
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm"><%- coupon.couponName %></h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <%- coupon.description?.slice(0,40)+'...' %>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm">
+                      <%= coupon.discountPercentage%> %
+                    </h6>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm">₹ <%= coupon.maxDiscountValue%></h6>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">
+                      <%- getDate(coupon.expiry) %>
+                    </p>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <div class="ms-auto text-end">
+                      <a
+                        style="background-color: #088178;color: aliceblue;border: none;"
+                        class="btn btn-primary text-gradient px-3 mb-0"
+                        href="javascript:;"
+                        onclick="deleteCoupon('<%- coupon._id%>')"
+                        ><i class="far fa-trash-alt me-2"></i>Delete</a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <%})%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button style="background-color: #18334f;color: aliceblue;margin-left: 40%;" data-toggle="modal" data-target="#Add-Coupon" class="btn">Add Coupon</button>
+  </section>
+</body>
+
+<!-- modal -->
+<div class="modal fade mt-5" id="Add-Coupon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: whitesmoke;border-radius: 10px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color:black; font-weight: bold;">Add Coupon</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="#" id="addCoupon" >
+          <div class="alert alert-danger" id="errorDisplay" role="alert" hidden></div>
+          <label for="">Coupon Code</label>
+          <input type="text" name="" id="couponName" class="form-control"  />
+          <a  class="btn btn-outline-info mt-1" onclick="generateCoupon()">Generate Code</a>
+          <br>
+          <label for="">Validity</label>
+          <input type="date" name="" id="validity" class="form-control"  />
+          <br>
+          <label for="">Min Purchase</label>
+          <input type="text" name="" id="minAmount" class="form-control" onkeyup="validateMinAmount()" />
+          <br>
+          <label for="">Discount ( % )</label>
+          <input type="text" name="" id="discountPercentage" class="form-control" />
+          <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+          <br>
+          <label for="">Max Discount(Rs)</label>
+          <input type="text" name="" id="maxDiscountValue" class="form-control" />
+          <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+          <br>
+          <label for="">Description(T&C)</label>
+          <input type="text" name="" id="description" class="form-control" />
+          <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+              
+          
+          
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button> -->
+        <button style="background-color: #088178;" type="submit" class="btn btn-success mt-4" onclick="validatorCoupen()">Submit</button>
+      </div>
+  </form>
+    </div>
+  </div>
+</div>
+
+  <script>
+    function deleteCoupon(couponId) {
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "/admin/coupon-delete/" + couponId,
+              method: "DELETE",
+              success: (response) => {
+                location.reload();
+              },
+            });
+            swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+        });
+    }
+  </script>
+
+
+<script>
+  function validatorCoupen() {
+    const coupenName = document.getElementById('couponName').value
+    const validity = document.getElementById('validity').value
+    const minAmount = document.getElementById('minAmount').value
+    const description = document.getElementById('description').value
+    const discountPercentage = document.getElementById('discountPercentage').value
+    const maxDiscountValue = document.getElementById('maxDiscountValue').value
+    const error = document.getElementById('errorDisplay')
+    let flag = 1
+    if (coupenName == "") {
+      error.removeAttribute('hidden')
+      error.innerText = "Generate coupen"
+      error.style.background = "rgb(200,0,0,0.1)"
+      error.style.width = "100%"
+      flag = 2
+    } else if (validity == '') {
+      error.removeAttribute('hidden')
+      error.innerText = 'expiry date is required'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (new Date(validity) - new Date() <= 0) {
+      error.removeAttribute('hidden')
+      error.innerText = 'this date has already expired'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (minAmount == '' || minAmount.length==0 ||!minAmount.match(/^\d+(\.\d{1,2})?$/)) {
+      error.removeAttribute('hidden')
+      error.innerText = 'min amount is not valid'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (minAmount < 1000) {
+      error.removeAttribute('hidden')
+      error.innerText = 'min amount should be greater that 1000'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (discountPercentage == '') {
+      error.removeAttribute('hidden')
+      error.innerText = ' discount percentage is required'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (discountPercentage <= 0) {
+      error.removeAttribute('hidden')
+      if (discountPercentage > 100) {
+        error.innerText = ' discount percentage cannot be greated than 100'
+        error.style.background = 'rgb(200,0,0,0.1)'
+        error.style.width = "100%"
+        flag = 2
+      } else if (discountPercentage < 0) {
+        error.innerText = ' discount percentage cannot be less than 0'
+        error.style.background = 'rgb(200,0,0,0.1)'
+        error.style.width = "100%"
+        flag = 2
+      }
+      else if(discountPercentage==''|| discountPercentage.length==0 ||!discountPercentage.match(/^\d+(\.\d{1,2})?$/)){
+        error.removeAttribute('hidden')
+      error.innerText = 'Discount percent is not valid'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+      }
+    } else if (maxDiscountValue > (minAmount * discountPercentage / 100)) {
+      error.removeAttribute('hidden')
+      console.log(minAmount * discountPercentage / 100);
+      error.innerText = `maximum offer price should be  ${minAmount*discountPercentage/100 }`
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (maxDiscountValue == '' || maxDiscountValue.length==0 ||!maxDiscountValue.match(/^\d+(\.\d{1,2})?$/)) {
+      error.removeAttribute('hidden')
+      error.innerText = 'Max Discount value is not valid'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    } else if (description == ''||description.length==0) {
+      error.removeAttribute('hidden')
+      error.innerText = 'description is not valid'
+      error.style.background = 'rgb(200,0,0,0.1)'
+      error.style.width = "100%"
+      flag = 2
+    }
+    if (flag == 1) {
+      submitCoupon(coupenName, new Date(validity), parseInt(minAmount), description, parseInt(discountPercentage), maxDiscountValue)
+    }
+  }
+  function submitCoupon(coupenName, validity, minAmount, description, discountPercentage, maxDiscountValue) {
+    $.ajax({
+      url: '/admin/add-coupons',
+      method: 'POST',
+      data: {
+        couponName: coupenName,
+        expiry: validity,
+        minPurchase: minAmount,
+        description: description,
+        discountPercentage: discountPercentage,
+        maxDiscountValue: maxDiscountValue,
+      },
+      success: (response) => {
+        location.reload()
+      }
+    })
+  }
+
+function generateCoupon() {
+  $.ajax({
+    url: '/admin/generate-coupon',
+    method: 'get',
+    success: (response) => {
+      $('#couponName').val(response.couponCode);
+    }
+  });
+}
+
+
+</script>

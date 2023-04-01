@@ -135,29 +135,64 @@
 
   <script>
     function cancelorder(orderId){
+      Swal.fire({
+                title: 'Are you sure?',
+                text: "Do You Want To Cancel This Order!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'black',
+                cancelButtonColor: '#088178',
+                confirmButtonText: 'Yes!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                  $.ajax({  
+                    url:'/cancelOrder/' + orderId,
+                    method:'put',
+                    success:(response)=>{
+                      if(response){
+                      location.reload()
+                      }
 
-        $.ajax({  
-        url:'/cancelOrder/' + orderId,
-        method:'put',
-        success:(response)=>{
-        if(response){
-            location.reload()
-        }
-
-        }
-    })
+                    }
+                  })
+                  Swal.fire(
+                        'Cancelled!',
+                        'Your Order has been Cancelled.',
+                        'success'
+                  )
+                }
+              })
+        
     }
 
 
     function returnOrder(orderId){
-      $.ajax({
-        url:'/returnOrder/'+orderId,
-        method:'put',
-        success:(response)=>{
-          if(response){
-            location.reload()
-          }
-        }
-      })
+      Swal.fire({
+                title: 'Are you sure?',
+                text: "Do You Want To Return This Order!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'black',
+                cancelButtonColor: '#088178',
+                confirmButtonText: 'Yes!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                  $.ajax({
+                    url:'/returnOrder/'+orderId,
+                    method:'put',
+                    success:(response)=>{
+                    if(response){
+                      location.reload()
+                    }
+                    }
+                  })
+                  Swal.fire(
+                        'Returned!',
+                        'Your Order has been returned.',
+                        'success'
+                  )
+                }
+              })
+                  
     }
   </script>

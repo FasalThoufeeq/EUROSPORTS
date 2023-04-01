@@ -1,0 +1,243 @@
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-color="bg-chartbg" data-col="2-columns">
+
+  <section class="mb-5 app-content content">
+  <div class="card-body mt-5 ml-5 mr-5">
+    <% if(banners?.length==0){%>
+      <div class="d-flex justify-content-center">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFqWz3Nvdd6XJUuRR4n0iv8ALgkZ-EVZF1ZQ&usqp=CAU" alt="" />
+        
+         <!-- <h3>No Orders Available</h3> -->
+      </div>
+      <%} else{%>
+      
+      
+      <div class="table-responsive">
+        <div class="table-responsive">
+          <table class="table align-middle table-nowrap mb-0">
+            <thead class="table-light">
+              
+              <tr>
+                 
+                <th class="align-middle" scope="col">Title</th>
+                <th class="align-middle" scope="col">Description</th>
+                <th class="align-middle" scope="col">Image</th>
+                <th class="align-middle" scope="col">Option</th>
+  
+  
+              </tr>
+            </thead>
+            <tbody>
+              <% banners?.forEach(function(banner,index) { %>
+              <tr>
+                
+                <td><a href="#" class="fw-bold"><%=banner.title%></a></td>
+          
+                <td><%=banner.description%></td>
+                <td>
+            <img src="<%=banner.image.length? banner.image[0]:'image'%>" alt="" style="width:100px;height:auto ">
+                </td>
+                <td>
+                 
+                    
+                    <a style="background-color: black; border: black;" href="" data-toggle="modal" data-target="#editBanner<%=banners[index]._id%>" class="btn btn-primary"> Edit Banner </a>
+                
+                </td>
+               
+              </tr>
+              <% }) %> 
+             
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <%}%>
+      
+      
+   
+
+      <a style="background-color: #088178; border: #088178;margin-left: 45%;" href="" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary mt-5"> Add Banner </a>
+    </div>
+</section>
+
+</body>
+
+
+
+
+
+<!-- add banner modal -->
+<div class="modal fade mt-5" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: whitesmoke;border-radius: 10px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color:black; font-weight: bold;">Add Banner</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/add-banner" method="POST" id="addbnr" enctype="multipart/form-data">
+          <label for="">Title</label>
+          <input type="text" name="title" id="addtitle" class="form-control" onkeyup="validateName()" />
+          <span id="add-title-error" class="validation-label"></span>
+          <br>
+          <label for="">Description</label>
+          <input type="text" name="description" id="add-description" class="form-control" onkeyup="descriptionValidation()" />
+          <span id="add-description-error" class="validation-label"></span>
+          <br>
+          <label for="">Link</label>
+          <input type="text" name="link" id="add-link" class="form-control" onkeyup="validateLink()" />
+          <span id="add-link-error" class="validation-label"></span>
+          <br>
+          <label for="">Image</label>
+          <input type="file" name="image" multiple="required" class="form-control" />
+          <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+              
+          
+          
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button> -->
+        <button style="background-color: #088178;" type="submit" class="btn btn-success mt-4">Submit</button>
+      </div>
+  </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- edit banner modal -->
+<% banners?.forEach(function(banner,index) { %>
+
+<div class="modal fade mt-5" id="editBanner<%=banners[index]._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: whitesmoke;border-radius: 10px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color:black; font-weight: bold;">Edit Banner</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/admin/edit-banner/<%=banner._id %>" id="editBnr" method="POST" enctype="multipart/form-data">
+          <label for="">Title</label>
+          <input type="text" value="<%=banner.title%>" name="title" id="edittitle" class="form-control"  />
+          <span id="edit-title-error" class="validation-label"></span>
+          <br>
+          <label for="">Description</label>
+          <input type="text" value="<%=banner.description%>" name="description" id="edit-description" class="form-control"  />
+          <span id="edit-description-error" class="validation-label"></span>
+          <br>
+          <label for="">Link</label>
+          <input type="text" value="<%=banner.link%>" name="link" id="edit-link" class="form-control"  />
+          <span id="edit-link-error" class="validation-label"></span>
+          <br>
+          <label for="">Image</label>
+          <% banner.image.forEach(function(image,index) { %>
+          <span ><img class="mt-2 mb-2" src="<%=image%>" alt="" style="width:100px;height:auto" id="imageView" ></span>
+          <% }) %> 
+          <input type="file" name="image" multiple="required" class="form-control" />
+          <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+              
+          
+          
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button> -->
+        <button style="background-color: #088178;" type="submit" class="btn btn-success mt-4">Submit</button>
+      </div>
+  </form>
+    </div>
+  </div>
+</div>
+<% }) %> 
+
+
+
+
+<script>
+  let regex = /^[^ ].*/;
+
+  
+  let titleError = document.getElementById("add-title-error");
+  let descriptionError = document.getElementById("add-description-error");
+  let linkError = document.getElementById("add-link-error");
+
+  let myform = document.getElementById("addbnr");
+
+  function validateName() {
+    console.log('fgh');
+    let name = document.getElementById("addtitle").value;
+    let nameInput = document.getElementById("addtitle");
+    if (name.length == 0) {
+      titleError.innerHTML = "Title is required";
+      titleError.style.color = "red";
+      nameInput.style.border = "solid 2px red";
+      return false;
+    }
+    if (!name.match(regex)) {
+      titleError.innerHTML = "Write valid Title";
+      titleError.style.color = "red";
+      nameInput.style.border = "solid 2px red";
+      return false;
+    }
+    titleError.innerHTML = "";
+    titleError.style.color = "green";
+    nameInput.style.border = "solid 2px green";
+    return true;
+  }
+
+  function descriptionValidation() {
+    let name = document.getElementById("add-description").value;
+    let nameInput = document.getElementById("add-description");
+    if (name.length == 0) {
+      descriptionError.innerHTML = "Description is required";
+      descriptionError.style.color = "red";
+      nameInput.style.border = "solid 2px red";
+      return false;
+    }
+    if (!name.match(regex)) {
+      descriptionError.innerHTML = "Write valid Description";
+      descriptionError.style.color = "red";
+      nameInput.style.border = "solid 2px red";
+      return false;
+    }
+    descriptionError.innerHTML = "";
+    descriptionError.style.color = "green";
+    nameInput.style.border = "solid 2px green";
+    return true;
+  }
+  
+  function validateLink() {
+    let link = document.getElementById("add-link").value;
+    let linkInput = document.getElementById("add-link");
+    if (link.length == 0) {
+      linkError.innerHTML = "Description is required";
+      linkError.style.color = "red";
+      linkInput.style.border = "solid 2px red";
+      return false;
+    }
+    if (!link.match(regex)) {
+      linkError.innerHTML = "Write valid Description";
+      linkError.style.color = "red";
+      linkInput.style.border = "solid 2px red";
+      return false;
+    }
+    linkError.innerHTML = "";
+    linkError.style.color = "green";
+    linkInput.style.border = "solid 2px green";
+    return true;
+  }
+
+  myform.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!validateName() || !descriptionValidation() || !validateLink()) {
+      return false;
+    } else {
+      myform.submit();
+    }
+  });
+</script>
+

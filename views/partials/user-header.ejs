@@ -82,7 +82,7 @@
                                         </button>
                                         <div class="dropdown-menu" style="width: 150px;">
                                           <% if (locals.loggedInStatus==true) { %>
-                                            <a class="dropdown-item" href="#" style="color: black;">See Profile</a>
+                                            <a class="dropdown-item" href="/user-profile" style="color: black;">See Profile</a>
                                             <a class="dropdown-item" href="/logout" style="color: black;">Logout</a>
                                           <% } else { %>
                                             <a class="dropdown-item" href="/login" style="color: black;">Login</a>
@@ -128,10 +128,11 @@
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-                        <div class="price">$0.00</div>
+                        <a href="#" class="search-switch"><img style="width: 20px;" src="img/icon/search.png" alt=""></a>
+                        <a href="/get-wishlist"><img style="width: 25px;" src="img/icon/heart.png" alt=""><span class="mb-1" id="wishCount" style="color: #088178; font-size: larger; position: absolute;left: 18px;top: -18px; margin-bottom: 4px; margin-left: 5px; font-weight: bolder;"><%=locals.wishCount%></span></a>
+                        <a href="/cart"><img style="width: 20px;" src="img/icon/cart.png" alt=""> <span id="cartCount" class="mb-1"  style="color: #088178; font-size: larger; position: absolute;left: 18px;top: -18px; margin-bottom: 4px; margin-left: 5px; font-weight: bolder;"><%=locals.cartCount%></span></a>
+                        
+                        
                     </div>
                 </div>
             </div>

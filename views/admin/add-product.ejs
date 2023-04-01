@@ -5,21 +5,31 @@
         <div class="col-md-12">
           <h2 class="text-center">Add Product</h2>
           <form
+          name="myform"
+          id="form"
             action="/admin/add-products"
             method="post"
             enctype="multipart/form-data"
             
           >
             <label for="">Prodcut Name</label>
-            <input type="text" name="productname" class="form-control" />
+            <input type="text" name="productname" id="name" required="" onkeyup="validateName()" class="form-control" />
+            <span id="name-error" class="validation-label"></span>
+            <br />
             <label for="">Description</label>
-            <input type="text" name="description" class="form-control" />
+            <input type="text" name="description" required="" id="description" onkeyup="validateDescription()" class="form-control" />
+            <span id="description-error" class="validation-label"></span>
+            <br>
   
             <label for="">Price</label>
-            <input type="text" name="price" class="form-control" />
+            <input type="text" name="price" onkeyup="validatePrice()" id="price" required="" class="form-control" />
+            <span id="price-error" class="validation-label"></span>
+            <br>
   
             <label for="">Quantity</label>
-            <input type="text" name="quantity" class="form-control" />
+            <input type="text" name="quantity" onkeyup="validateQuantity()" id="quantity" required="" class="form-control" />
+            <span id="quantity-error" class="validation-label"></span>
+            <br>
   
             <label for="">Category</label>
             
@@ -32,7 +42,7 @@
               
   
             <label for="">Image</label>
-            <input type="file" name="image" multiple="required" class="form-control" />
+            <input type="file" name="image" accept="file/*" multiple="required" onselect="validateImage()"  class="form-control" />
             
 
             <!-- <label for="">Image</label>
@@ -51,3 +61,152 @@
     </div>
   </section>
   </body>
+
+  <script>
+    const img = document.forms["myform"]["image"];
+    const validExt = ["jpeg", "png", "jpg", "webp"];
+    function validateImage() {
+      if (img.value !== "") {
+        const dot_pos = img.value.lastIndexOf(".") + 1;
+        const img_ext = img.value.substring(dot_pos);
+        const result = validExt.includes(img_ext);
+        if (result == false) {
+          swal.fire("OOPs!", "Selected file is not an image!", "error");
+          return false;
+        } else {
+          if (Number(img.files[0].size / (1024 * 1024)) >= 3) {
+            swal.fire(
+              "OOPs!",
+              "Size must be smaller than 3 MB . Current size is :" +
+                Number(img.files[0].size / (1024 * 1024)),
+              "error"
+            );
+            
+          }
+        }
+      } else {
+        swal.fire("error", "No image is selected...", "error");
+        
+        return false;
+      }
+      return true;
+    }
+  
+    const nameError = document.getElementById("name-error");
+    const descriptionError = document.getElementById("description-error");
+    const priceError = document.getElementById("price-error");
+    const quantityError = document.getElementById("quantity-error");
+    const formError = document.getElementById("form-error");
+    const form = document.getElementById("form");
+    const regex = /^[^ ].*/
+  
+    function validateName() {
+      var name = document.getElementById("name").value;
+      var nameInput = document.getElementById("name");
+      if (name.length == 0) {
+        nameError.innerHTML = "Name is required";
+        nameError.style.color = "red";
+        nameInput.style.border = "solid 2px red";
+        return false;
+      }
+      if (!name.match(regex)) {
+        nameError.innerHTML = "Write valid name";
+        nameError.style.color = "red";
+        nameInput.style.border = "solid 2px red";
+  
+        return false;
+      }
+      nameError.innerHTML = "";
+      // nameError.innerHTML = "Valid Name";
+      nameError.style.color = "green";
+      nameInput.style.border = "solid 2px green";
+  
+      return true;
+    }
+    
+    function validateDescription() {
+      const description = document.getElementById("description").value;
+      const descriptionInput = document.getElementById("description");
+      console.log(name);
+      if (description.length == 0) {
+        descriptionError.innerHTML = "Discription is required";
+        descriptionError.style.color = "red";
+        descriptionInput.style.border = "solid 2px red";
+        return false;
+      }
+      if (!description.match(regex)) {
+        descriptionError.innerHTML = "Write valid discription";
+        descriptionError.style.color = "red";
+        nameInput.style.border = "solid 2px red";
+        return false;
+      }
+      descriptionError.innerHTML = "";
+      // nameError.innerHTML = "Valid Name";
+      descriptionError.style.color = "green";
+      descriptionInput.style.border = "solid 2px green";
+      return true;
+    }
+    function validatePrice() {
+      const price = document.getElementById("price").value;
+      const priceInput = document.getElementById("price");
+      if (price.length == 0) {
+        priceError.innerHTML = "Price field is required";
+        priceError.style.color = "red";
+        priceInput.style.border = "solid 2px red";
+        return false;
+      }
+      if (!price.match(/^\d+(\.\d{1,2})?$/)) {
+        priceError.innerHTML = "Write valid price";
+        priceError.style.color = "red";
+        nameInput.style.border = "solid 2px red";
+        return false;
+      }
+      priceError.innerHTML = "";
+      // nameError.innerHTML = "Valid Name";
+      priceError.style.color = "green";
+      priceInput.style.border = "solid 2px green";
+      return true;
+    }
+    function validateQuantity() {
+      const quantity = document.getElementById("quantity").value;
+      const quantityInput = document.getElementById("quantity");
+      console.log(name);
+      if (quantity.length == 0) {
+        quantityError.innerHTML = "quantity field is required";
+        quantityError.style.color = "red";
+        quantityInput.style.border = "solid 2px red";
+        return false;
+      }
+      if (!quantity.match(/^[1-9]\d*$/)) {
+        quantityError.innerHTML = "Write valid quantity";
+        quantityError.style.color = "red";
+        nameInput.style.border = "solid 2px red";
+        return false;
+      }
+      quantityError.innerHTML = "";
+      // nameError.innerHTML = "Valid Name";
+      quantityError.style.color = "green";
+      quantityInput.style.border = "solid 2px green";
+      return true;
+    }
+  
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (
+        !validatePrice() ||
+        !validateQuantity() ||
+        !validateDescription() ||
+        !validateImage() ||
+        !validateName()
+      ) {
+        Swal.fire({
+          icon: "error",
+          title: "Enter details correctly!!",
+        });
+        return false;
+      } else {
+        form.submit();
+      }
+    });
+  </script>
+  

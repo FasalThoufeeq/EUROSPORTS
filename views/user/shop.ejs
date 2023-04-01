@@ -185,13 +185,9 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="shop__product__option">
+                <!-- <div class="shop__product__option">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="shop__product__option__left">
-                                <p>Showing 1–12 of 126 results</p>
-                            </div>
-                        </div>
+                        
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="shop__product__option__right">
                                 <p>Sort by Price:</p>
@@ -203,7 +199,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <% products.forEach(function(products,index) { %>
                     <div class="col-lg-4 col-md-6 col-sm-6">
@@ -211,8 +207,8 @@
                             <a href="/shop-details/<%=products._id%>">
                                 <div class="product__item__pic set-bg" data-setbg="<%= products.image[0] %>">
                                     <ul class="product__hover">
-                                        <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
+                                        <li><a aria-label="Add To Wishlist" class="action-btn" onclick="addToWishlist('<%-products._id%>')"><img src="img/icon/heart.png" alt=""></a></li>
+                                        <li><a ><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
                                         </li>
                                         <li><a href="/shop-details/<%=products._id%>"><img src="img/icon/search.png" alt=""></a></li>
                                     </ul>
@@ -298,6 +294,51 @@
           }else{
             Toastify({
             text: "Please login to add cart",
+            duration: 3000,
+            gravity: "bottom", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+            onClick: function () { } // Callback after click
+          }).showToast();
+          }
+          
+        }
+  
+      })
+    }
+
+
+
+
+    function addToWishlist(proId) {
+        console.log(proId);
+      $.ajax({
+        url: "/addWishlist/" + proId,
+        method: "get",
+        success: (response) => {
+          if (response.status) {
+            let wishCount = $("#wishCount").html()
+            wishCount = parseInt(wishCount) + 1
+            $("#wishCount").html(wishCount)
+
+
+            Toastify({
+            text: "Added to Wishlist",
+            duration: 3000,
+            gravity: "bottom", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+            onClick: function () { } // Callback after click
+          }).showToast();
+          }else{
+            Toastify({
+            text: "Please login to add Wishlist",
             duration: 3000,
             gravity: "bottom", // `top` or `bottom`
             position: "center", // `left`, `center` or `right`

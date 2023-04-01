@@ -42,7 +42,7 @@
                   <td><%=products.productname%></td> 
                   <td><%=products.description%></td> 
                   <td><%=products.price%></td> 
-                  <td><%=products.catDetails[0].categoryname%></td> 
+                  <td><%=products.catDetails[0]?.categoryname%></td> 
                   <td><%=products.quantity%></td> 
                 
                   <td><img src='<%= products.image[0] %>' alt="" style="width:50px;height:50px";></td>
@@ -52,7 +52,7 @@
                   <td>
                     <%if(products.list){%>
 
-                      <a href ="/admin/unlist-product/<%=products._id %>" class="btn btn-dark" onclick="return confirm('are you want to block <%=products.name%>?')">Unlist</a>
+                      <a href ="/admin/unlist-product/<%=products._id %>" class="btn btn-dark" >Unlist</a>
                
                       
                     <%}

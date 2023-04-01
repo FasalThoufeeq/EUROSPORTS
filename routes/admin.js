@@ -4,10 +4,11 @@ const adminController=require('../Controllers/adminControllers/adminController')
 const adminUser=require('../Controllers/adminControllers/adminUser')
 const adminProduct=require('../Controllers/adminControllers/adminProductController')
 const upload=require('../utils/multer')
-const authentication=require('../authMiddleware/adminAuth')
+const authentication=require('../authMiddleware/adminAuth');
+const { image } = require('../utils/clodinary');
 
 /* GET home page. */
-router.get('/',adminController.getDashboard)
+router.get('/',authentication.adminAuthentication,adminController.getDashboard)
 
 
 
@@ -58,5 +59,23 @@ router.get('/orders-list',authentication.adminAuthentication,adminProduct.getOrd
 router.get('/order-details/:id',authentication.adminAuthentication,adminProduct.getOrderDetails)
 
 router.post('/order-details/:id',authentication.adminAuthentication,adminProduct.postOrderDetails)
+
+router.get('/add-banner',authentication.adminAuthentication,adminProduct.addBanner)
+
+router.post('/add-banner',authentication.adminAuthentication,upload.array('image',4),adminProduct.postBannner)
+
+router.post('/edit-banner/:id',authentication.adminAuthentication,upload.array('image',4),adminProduct.editBanner)
+
+router.get('/view-coupon',authentication.adminAuthentication,adminProduct.viewCoupon)
+
+router.get('/generate-coupon',authentication.adminAuthentication,adminProduct.generateCoupon)
+
+router.post('/add-coupons',authentication.adminAuthentication,adminProduct.addCoupon)
+
+router.delete('/coupon-delete/:id',authentication.adminAuthentication,adminProduct.deleteCoupon)
+
+router.get('/sales-report',authentication.adminAuthentication,adminProduct.salesReport)
+
+router.post('/sales-report',authentication.adminAuthentication,adminProduct.postSalesPeriod)
 
 module.exports = router;

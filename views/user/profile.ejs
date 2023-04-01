@@ -1,0 +1,389 @@
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>User Profile</h4>
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        
+                        <span>User Profile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+      
+    <section class="content-main mb-5 ml-5 mr-5 p-5">
+        <div class="content-header ">
+            <h2 class="content-title" style="margin-top: 20px;margin-bottom: 20px; font-weight: bold;">Hi <span style="color: #088178;"><%=userData.name%> </span></h2>
+        </div>
+        <div style="border-color: #088178;" class="card">
+            <div class="card-body">
+                <div class="row gx-5">
+                    <aside style="border-right: #088178 1px solid;" class="col-lg-3 border-end">
+                        <nav class="nav nav-pills flex-lg-column mb-4">
+                            <a style="color: black; font-weight: bolder;" class="nav-link" aria-current="page" href="/user-profile">General</a>
+                            <a style="color: black; font-weight: bolder;" class="nav-link" href="" data-toggle="modal" data-target="#exampleModal">Reset Password</a>
+                            <a style="color: black; font-weight: bolder;" class="nav-link" href="/getAddress">Address</a>
+                            <a style="color: black; font-weight: bolder;" class="nav-link" href="/orders">Orders</a>
+                            
+                            <a style="color: black; font-weight: bolder;" class="nav-link text-danger" href="/logout">Logout</a>
+                            
+                        </nav>
+                    </aside>
+                    <div class="col-lg-9">
+                        <section class="content-body p-xl-4">
+                            <form id="profile" >
+
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="row gx-3">
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">User Name</label>
+                                                <input class="form-control" name="fname" type="text" id="name"  
+                                                required="" value="<%=userData.name%>"  onkeyup="validateName()">
+                                                <span id="name-error" class="validation-label"></span>
+                                            </div> <!-- col .// -->
+                                            
+                                            <div class="col-lg-6  mb-3">
+                                                <label class="form-label">Email</label>
+                                                <input class="form-control" name="email" type="email" id="email" onkeyup="validateEmail()" required="  " value="<%=userData.email%>">
+                                               
+                                                <span id="email-error" class="validation-label"></span>
+
+                                            </div> <!-- col .// -->
+                                            <div class="col-lg-6  mb-3">
+                                                <label class="form-label">Phone</label>
+                                                <input class="form-control" name="phone" type="number" id="phone" onkeyup="validatePhone()" required="  " value="<%=userData.phone%>">
+                                                <span id="phone-error" class="validation-label"></span>
+                                            </div> <!-- col .// -->
+                                         
+                                           
+                                            
+                                        </div> <!-- row.// -->
+                                    </div> <!-- col.// -->
+                                  
+                                </div> <!-- row.// -->
+                                <br>
+
+                                <button style="background-color: #088178;border: none;" class="btn btn-primary" onclick="if(validate()==true){changeProfile('<%=userData._id%>')}">Save Changes</button>
+
+                            </form>
+                            
+                            
+                        </section> <!-- content-body .// -->
+                    </div> <!-- col.// -->
+                </div> <!-- row.// -->
+            </div> <!-- card body end// -->
+        </div> <!-- card end// -->
+    </section> <!-- content-main end// -->
+
+    <!-- modal 1 -->
+    <div class="modal fade mt-5" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="background-color: whitesmoke;border-radius: 10px;">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel" style="color:black; font-weight: bold;">Reset Password</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="update">
+                    <div class="form-group" >
+                        <label for="pwd" class="form-label">Old Pasword</label>
+                                  <input 
+                                  type="password" 
+                                  id="pwd" 
+                                  class="form-control" 
+                                  name="password" 
+                                  placeholder="Enter Your Old password"
+                                  required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd" class="form-label">New Pasword</label>
+                                  <input 
+                                  type="password" 
+                                  id="password2" 
+                                  class="form-control" 
+                                  name="password2" 
+                                  placeholder="Enter Your New password"
+                                  onkeyup="validatePassword()"
+                                    required="">
+                                    <span id="pass-error" class="validation-label"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pwd" class="form-label">Re Enter Pasword</label>
+                                  <input 
+                                  type="password" 
+                                  id="cnfrm-password" 
+                                  class="form-control" 
+                                  name="cnfrm-password" 
+                                  placeholder="Re Enter Your New password"
+                                  onkeyup="validatePassword()"
+                                    required="">
+                                    <span id="pass-error" class="validation-label"></span>
+                    </div>
+                    
+                    <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                    <!-- <div class="payment_method">
+                        <p>Payment Method</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="'payment-method" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                              Cash On Delivery
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="'payment-method" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                              Bank Or UPI
+                            </label>
+                          </div>
+                      
+                    </div> -->
+                
+                
+            </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Send message</button> -->
+              <button onclick=" newPassword();" type="submit" class="btn btn-dark" >Reset</button>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+      <script>
+        function changeProfile(profileId) {
+      
+          
+          $('#profile').submit((e) =>{
+              e.preventDefault();
+              $.ajax({
+              url: '/update_profile/'+profileId,
+              method: "PUT",
+              data:$('#profile').serialize(),
+              success: (response) => {
+                //   location.reload();
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Updated successfully!!',
+      
+                })
+                  
+              },
+              
+              
+              });
+          })
+      
+      }
+      </script>
+
+<script>
+    function newPassword() {
+        
+    
+      $('#update').submit((e) =>{
+          e.preventDefault();
+          $.ajax({
+          url: '/reset-password',
+          method: "POST",
+          data:$('#update').serialize(),
+          success: (response) => {
+            if(response){
+                Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'Your password has been updated',
+  showConfirmButton: false,
+  timer: 1500
+})
+// location.href="/profile"
+            }
+            else{
+                Swal.fire({
+  icon: 'error',
+  title: 'Enter old password correctly!!',
+  
+})
+            }
+          },
+          });
+      })
+  }
+  </script>
+
+      <script>
+        var nameError = document.getElementById("name-error");
+        var emailError = document.getElementById("email-error");
+        var phoneError = document.getElementById("phone-error");
+        const regex = /^[^ ].*/
+        function validateName() {
+            console.log(">>>>>>>>>>");
+        var name = document.getElementById("name").value;
+        var nameInput = document.getElementById("name");
+      
+        if (name.length == 0) {
+          nameError.innerHTML = "Name is required";
+          nameError.style.color = "red";
+          nameInput.style.border = "solid 2px red";
+          return false;
+        }
+        if (!name.match(regex)) {
+          nameError.innerHTML = "Write valid name";
+          nameError.style.color = "red";
+          nameInput.style.border = "solid 2px red";
+      
+          return false;
+        }
+        nameError.innerHTML = "";
+        // nameError.innerHTML = "Valid Name";
+        nameError.style.color = "green";
+        nameInput.style.border = "solid 2px green";
+      
+        return true;
+      }
+      function validateEmail() {
+        var email = document.getElementById("email").value;
+        var emailInput = document.getElementById("email");
+      
+        if (email.length == 0) {
+          emailError.innerHTML = "Email is required";
+          emailError.style.color = "red";
+          emailInput.style.border = "solid 2px red";
+      
+          return false;
+        }
+        if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+          emailError.innerHTML = "Email invalid";
+          emailError.style.color = "red";
+          emailInput.style.border = "solid 2px red";
+      
+          return false;
+        }
+        emailError.innerHTML = "";
+        emailError.style.color = "green";
+        emailInput.style.border = "solid 2px green";
+        return true;
+      }
+      function validatePhone(){
+        var phone = document.getElementById("phone").value;
+        var phoneInput = document.getElementById("phone");
+      
+        if (phone.length == 0) {
+          phoneError.innerHTML = "phone number is required";
+          phoneError.style.color = "red";
+          phoneInput.style.border = "solid 2px red";
+          return false;
+        }
+        if (!phone.match(/^\d{10}$/)) {
+          phoneError.innerHTML = "Enter valid number";
+          phoneError.style.color = "red";
+          phoneInput.style.border = "solid 2px red";
+      
+      
+      return false;
+        }
+        phoneError.innerHTML = "";
+        phoneError.style.color = "green";
+        phoneInput.style.border = "solid 2px green";
+        return true;
+      }
+      function validate(){
+        if(!validateName() ||  !validateEmail() || !validatePhone())
+        {
+      Swal.fire({
+      icon: 'error',
+      title: 'Enter details correctly!!',
+      
+    })
+          return false;
+        }
+        else
+        {
+          return true
+        }
+      }
+      </script>
+
+
+<script>
+    let passError=document.getElementById("pass-error");
+    function validatePassword(){
+         
+        let password = document.getElementById("password2").value;
+        let passwordInput = document.getElementById("password2")
+        let cnfrmPassword = document.getElementById("cnfrm-password").value;
+        let cnfrmPasswordInput= document.getElementById("cnfrm-password")
+        
+            if(password.length != 0){
+                if(password == cnfrmPassword){
+                    passError.innerHTML = "Passwords match";
+                    passError.style.color = "green";
+                    passwordInput.style.border = "solid 2px green";
+                    cnfrmPasswordInput.style.border = "solid 2px green";
+                    return true
+                }
+                else if (!password.match(/[a-zA-Z]/)) {
+                  passError.innerHTML = "Password must contain atleast 1 letter";
+                  passError.style.color = "red";
+                  passwordInput.style.border = "solid 2px red";
+                  return false;
+                }
+                else if (!password.match(/^.{8,}$/)) {
+                  passError.innerHTML = "Password min-length 8";
+                  passError.style.color = "red";
+                  passwordInput.style.border = "solid 2px red";
+                  return false;
+                }
+                else if (!password.match(/^(?=.*[\W_])[\w\W]/)) {
+                  passError.innerHTML = "Password must contain atleast one special character";
+                  passError.style.color = "red";
+                  passwordInput.style.border = "solid 2px red";
+                  return false;
+                }
+                else{
+                    passError.innerHTML = "Password don't match";
+                    passError.style.color = "red";
+                    passwordInput.style.border = "solid 2px red";
+                    return false
+        
+        
+                }
+            }
+            else{
+                
+                message.textContent = "";
+            }
+        
+        }
+        function validateForm() {
+      if (
+        !validatePassword
+      ) {
+        submitError.style.display = "block";
+        submitError.innerHTML = "Please fix all errors to submit.";
+        setTimeout(function () {
+          submitError.style.display = "none";
+        }, 3000);
+        return false;
+      }
+    }
+    </script>

@@ -5,15 +5,67 @@
         <div class="col-md-12">
           <h2 class="text-center">Edit Category</h2>
           <form
+            id="form"
             action="/admin/edit-category/<%= category._id %>"
             method="post"
           >
             <label for="">Category Name</label>
-            <input type="text" name="editcategoryname" class="form-control" value="<%=category.categoryname %>"/>
+            <input type="text" id="name" name="editcategoryname" class="form-control" value="<%=category.categoryname %>" required="" onkeyup="validateName()"/>
+            
+            <span id="name-error" class="validation-label"></span>
+            <br>
             <button type="submit" class="btn btn-info mt-4">Submit</button>
+            
           </form>
         </div>
       </div>
     </div>
   </section>
   </body>
+
+  <script>
+    let nameError = document.getElementById("name-error");
+  
+  
+  const regex = /^[^ ].*/
+  function validateName() {
+    var name = document.getElementById("name").value;
+    var nameInput = document.getElementById("name");
+  
+    if (name.length == 0) {
+      nameError.innerHTML = "Name is required";
+      nameError.style.color = "red";
+      nameInput.style.border = "solid 2px red";
+      return false;
+    } if (!name.match(regex)) {
+      nameError.innerHTML = "Write valid name";
+      nameError.style.color = "red";
+      nameInput.style.border = "solid 2px red";
+  
+      return false;
+    }
+    nameError.innerHTML = "";
+    // nameError.innerHTML = "Valid Name";
+    nameError.style.color = "green";
+    nameInput.style.border = "solid 2px green";
+  
+    return true;
+  }
+  
+  const form = document.getElementById('form');
+  
+  form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (
+        !validateName()) {
+    
+        Swal.fire({
+          icon: 'error',
+          title: 'Enter details correctly!!',
+        });
+        return false;
+      } else {
+        form.submit();
+      }
+    });
+  </script>

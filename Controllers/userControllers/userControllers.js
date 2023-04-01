@@ -1,21 +1,27 @@
-const { response } = require('../../app')
+const { response, render } = require('../../app')
 const userHelpers=require('../../Helpers/userHelpers/userHelpers')
+const productHelper=require('../../Helpers/userHelpers/userProduct')
+const adminProductHelper=require('../../Helpers/adminHelpers/adminProductHelper')
 const otp=require('../../utils/otp')
 const client=require("twilio")(otp.accountSID,otp.authToken)
 
 
-
+let cartCount,wishCount,username
 module.exports={
 
 
     //get Home
-    getUserHome:(req,res)=>{
+    getUserHome:async(req,res)=>{
         if(req.session.loggedIn){
-            let username=req.session.user.name
+            username=req.session.user.name
+            wishCount=await productHelper.getWishCount(req.session.user._id)
+            cartCount=await productHelper.getCartCount(req.session.user._id)
+            let banner=await adminProductHelper.getAllBanner()
             
-            res.render('user/home',{username,loggedInStatus:true})
+            res.render('user/home',{username,wishCount,cartCount,loggedInStatus:true,banner})
         }else{
-            res.render('user/home',{loggedInStatus:false})
+            let banner=await adminProductHelper.getAllBanner()
+            res.render('user/home',{loggedInStatus:false,banner})
         }
     },
 
@@ -149,6 +155,55 @@ module.exports={
             }else{
                 res.render('user/change-password',{changed:false})
             }
+        })
+    },
+
+
+    getProfile:(req,res)=>{
+        userHelpers.getProfile(req.session.user._id).then(async(userData)=>{
+            username=req.session.user.name
+            wishCount=await productHelper.getWishCount(req.session.user._id)
+            cartCount=await productHelper.getCartCount(req.session.user._id)
+
+            res.render('user/profile',{username,wishCount,cartCount,loggedInStatus:true,userData})
+        })
+    },
+
+    updateProfile:(req,res)=>{
+        userHelpers.updateProfile(req.body,req.params.id).then((data)=>{
+            res.json({data})
+        })
+    },
+
+
+    resetPassword:(req,res)=>{
+        console.log(req.body);
+        userHelpers.resetPassword(req.body,req.session.user._id).then((response)=>{
+            if(response){
+                res.json(true)
+            }else{
+                res.json(false)
+            }
+        })
+    },
+
+    getAddress:async(req,res)=>{
+        username=req.session.user.name
+        wishCount=await productHelper.getWishCount(req.session.user._id)
+        cartCount=await productHelper.getCartCount(req.session.user._id)
+        let storedAddress=await productHelper.storedAddress(req.session.user._id)
+        res.render('user/address',{username,wishCount,cartCount,loggedInStatus:true,storedAddress})
+    },
+
+    postAddress:(req,res)=>{
+        productHelper.postAddAddress(req.body,req.session.user._id).then(()=>{
+            res.redirect('/getAddress')
+        })
+    },
+
+    deleteAddress:(req,res)=>{
+        userHelpers.deleteAddress(req.body,req.session.user._id).then((response)=>{
+            res.json(response)
         })
     }
 
