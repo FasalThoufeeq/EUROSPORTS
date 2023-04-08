@@ -1,79 +1,114 @@
-
-
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__text">
-                        <h4>Shopping Cart</h4>
-                        <div class="breadcrumb__links">
-                            <a href="/">Home</a>
-                            <a href="/shop">Shop</a>
-                            <span>Shopping Cart</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb__text">
+          <h4>Shopping Cart</h4>
+          <div class="breadcrumb__links">
+            <a href="/">Home</a>
+            <a href="/shop">Shop</a>
+            <span>Shopping Cart</span>
+          </div>
         </div>
-    </section>
-    <!-- Breadcrumb Section End -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
 
-    <!-- Shopping Cart Section Begin -->
-    <section class="shopping-cart spad">
-        <div class="container">
-            <% if(cartList.length==0){%>
-                <div class="d-flex justify-content-center">
-                  <img src="data:image/png;base64,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" alt="" />
-                  
-                   <!-- <h3>No Orders Available</h3> -->
-                </div>
-                <div style="align-items: center;" class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="continue__btn">
-                            <a href="/shop">Continue Shopping</a>
-                        </div>
-                    </div>
-                    
-                </div>
-                <%} else{%>
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="shopping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% cartList.forEach(function(cartList,index){%>
-                                <tr>
-                                    <% cartList.product.forEach(function(cartList){%>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic" style="width: 60px;">
-                                            <img src="<%= cartList.image[0] %>" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6><%= cartList.productname %></h6>
-                                            <h5>₹<%= cartList.price %></h5>
-                                        </div>
-                                    </td>
-                                    <%}) %>
-                                    <td class="quantity__item ">
-                                        
-                                        <button id="less" class="change-quantity ml-2" onclick="changeQuantity('<%=cartList._id%>','<%=cartList.productId%>','<%=user._id%>',-1)" style=" border: none; background-color: rgb(24, 24, 24); width: 30PX;height: 35px;color: white;">-</button>       
-                                        <span class="qty-val" id="<%=cartList.productId %>" style="font-size: larger;font-weight: 600;"><%=cartList.quantity%></span>
-                                        <button class="change-quantity" onclick="changeQuantity('<%=cartList._id%>','<%=cartList.productId%>','<%=user._id%>',1)" style=" border: none; background-color: rgb(24, 24, 24); width: 30PX;height: 35px;color: white;">+</button>
-                                        
-                                    </td>
-                                    <td id="subTotal" class="cart__price">₹<%=subTotal[index].subTotal%></td>
-                                    <td class="cart__close" onclick="removeCart('<%=cartList._id%>','<%=cartList.productId%>')"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <!-- <tr>
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+  <div class="container">
+    <% if(cartList.length==0){%>
+    <div class="d-flex justify-content-center">
+      <img
+        src="data:image/png;base64,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"
+        alt=""
+      />
+
+      <!-- <h3>No Orders Available</h3> -->
+    </div>
+    <div style="align-items: center" class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="continue__btn">
+          <a href="/shop">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+    <%} else{%>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="shopping__cart__table">
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% cartList.forEach(function(cartList,index){%>
+              <tr>
+                <% cartList.product.forEach(function(cartList){%>
+                <td class="product__cart__item">
+                  <div class="product__cart__item__pic" style="width: 60px">
+                    <img src="<%= cartList.image[0] %>" alt="" />
+                  </div>
+                  <div class="product__cart__item__text">
+                    <h6><%= cartList.productname %></h6>
+                    <h5>₹<%= cartList.price %></h5>
+                  </div>
+                </td>
+                <%}) %>
+                <td class="quantity__item">
+                  <button
+                    id="less"
+                    class="change-quantity ml-2"
+                    onclick="changeQuantity('<%=cartList._id%>','<%=cartList.productId%>','<%=user._id%>',-1)"
+                    style="
+                      border: none;
+                      background-color: rgb(24, 24, 24);
+                      width: 30px;
+                      height: 35px;
+                      color: white;
+                    "
+                  >
+                    -
+                  </button>
+                  <span
+                    class="qty-val"
+                    id="<%=cartList.productId %>"
+                    style="font-size: larger; font-weight: 600"
+                    ><%=cartList.quantity%></span
+                  >
+                  <button
+                    class="change-quantity"
+                    onclick="changeQuantity('<%=cartList._id%>','<%=cartList.productId%>','<%=user._id%>',1)"
+                    style="
+                      border: none;
+                      background-color: rgb(24, 24, 24);
+                      width: 30px;
+                      height: 35px;
+                      color: white;
+                    "
+                  >
+                    +
+                  </button>
+                </td>
+                <td id="subTotal" class="cart__price">
+                  ₹<%=subTotal[index].subTotal%>
+                </td>
+                <td
+                  class="cart__close"
+                  onclick="removeCart('<%=cartList._id%>','<%=cartList.productId%>')"
+                >
+                  <i class="fa fa-close"></i>
+                </td>
+              </tr>
+              <!-- <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             <img src="img/shopping-cart/cart-2.jpg" alt="">
@@ -93,7 +128,7 @@
                                     <td class="cart__price">$ 32.50</td>
                                     <td class="cart__close"><i class="fa fa-close"></i></td>
                                 </tr> -->
-                                <!-- <tr>
+              <!-- <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             <img src="img/shopping-cart/cart-3.jpg" alt="">
@@ -113,7 +148,7 @@
                                     <td class="cart__price">$ 47.00</td>
                                     <td class="cart__close"><i class="fa fa-close"></i></td>
                                 </tr> -->
-                                <!-- <tr>
+              <!-- <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             <img src="img/shopping-cart/cart-4.jpg" alt="">
@@ -133,156 +168,168 @@
                                     <td class="cart__price">$ 30.00</td>
                                     <td class="cart__close"><i class="fa fa-close"></i></td>
                                 </tr> -->
-                                <%}) %>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn">
-                                <a href="/shop">Continue Shopping</a>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="cart__discount">
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" id="Coupon" name="couponName" placeholder="Coupon code">
-                            <button onclick="ValidateCoupon()" type="button">Apply</button>
-                        </form>
-                        <h6 class="message mt-4 ml-5" type="hidden" id="successMesage" style=" color: green; font-weight: bold;"></h6>
-                        <h6 class="message mt-4 ml-5" type="hidden" id="couponUsedErr" style=" color: red; font-weight: bold;"></h6>
-                       
-                    </div>
-                    <div class="cart__total">
-                        <form class="form-sample" action="/cart" method="post">
-                            <input type="hidden" name="total" id="checkTotal">
-                            <input type="hidden" name="couponName" id="couponName">
-                            <input type="hidden" name="discountAmount" id="couponDiscountAmount">
-                        <h6>Cart total</h6>
-                        <ul>
-                            <% if (totalAmount[0]) { %>
-                                <!-- <li>Subtotal <span>$ 169.50</span></li> -->
-                                <li>Total <span id="totalAmount">₹ <%=totalAmount[0].totalAmount %></span></li>
-                                
-                                
-                            <% } else { %>
-                                <!-- <li>Subtotal <span>$ 169.50</span></li> -->
-                                <li>Total <span >₹ 0</span></li>
-                            <% } %>
-                            <li>Discount<span id="discountAmount">₹ 0</span></li>
-                            <li>Grand Total<span id="grand-total">₹ <%=totalAmount[0].totalAmount %></span></li>
-                            
-                            
-                        </ul>
-                        <button type="submit" class="primary-btn ml-2" style="width: 260px;">Proceed To CheckOut</button>
-                        <!-- <a href="/checkout" class="primary-btn">Proceed to checkout</a> -->
-                    </form>
-                    </div>
-                </div>
-            </div>
-            <%}%>
+              <%}) %>
+            </tbody>
+          </table>
         </div>
-    </section>
-    <!-- Shopping Cart Section End -->
-   
-    <script>
-        function changeQuantity(cartId,proId,userId,count){
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="continue__btn">
+              <a href="/shop">Continue Shopping</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="cart__discount">
+          <h6>Discount codes</h6>
+          <form action="#">
+            <input
+              type="text"
+              id="Coupon"
+              name="couponName"
+              placeholder="Coupon code"
+            />
+            <button onclick="ValidateCoupon()" type="button">Apply</button>
+          </form>
+          <h6
+            class="message mt-4 ml-5"
+            type="hidden"
+            id="successMesage"
+            style="color: green; font-weight: bold"
+          ></h6>
+          <h6
+            class="message mt-4 ml-5"
+            type="hidden"
+            id="couponUsedErr"
+            style="color: red; font-weight: bold"
+          ></h6>
+        </div>
+        <div class="cart__total">
+          <form class="form-sample" action="/cart" method="post">
+            <input type="hidden" name="total" id="checkTotal" />
+            <input type="hidden" name="couponName" id="couponName" />
+            <input
+              type="hidden"
+              name="discountAmount"
+              id="couponDiscountAmount"
+            />
+            <h6>Cart total</h6>
+            <ul>
+              <% if (totalAmount[0]) { %>
+              <!-- <li>Subtotal <span>$ 169.50</span></li> -->
+              <li>
+                Total
+                <span id="totalAmount">₹ <%=totalAmount[0].totalAmount %></span>
+              </li>
 
-            let quantity=parseInt(document.getElementById(proId).textContent)
-            count=parseInt(count)
-            // console.log(quantity);
-            $.ajax({
-                url:"/change-quantity",
-                method:"PUT",
-                data:{user:userId, products:proId, cart:cartId, count:count, quantity:quantity},
+              <% } else { %>
+              <!-- <li>Subtotal <span>$ 169.50</span></li> -->
+              <li>Total <span>₹ 0</span></li>
+              <% } %>
+              <li>Discount<span id="discountAmount">₹ 0</span></li>
+              <li>
+                Grand Total<span id="grand-total"
+                  >₹ <%=totalAmount[0].totalAmount %></span
+                >
+              </li>
+            </ul>
+            <button type="submit" class="primary-btn ml-2" style="width: 260px">
+              Proceed To CheckOut
+            </button>
+            <!-- <a href="/checkout" class="primary-btn">Proceed to checkout</a> -->
+          </form>
+        </div>
+      </div>
+    </div>
+    <%}%>
+  </div>
+</section>
+<!-- Shopping Cart Section End -->
 
-                success:(response)=>{
-                    if(response.removed==true){
-                        alert("Do you want to remove this product from your cart ?")
-                        location.reload()
+<script>
+  function changeQuantity(cartId, proId, userId, count) {
+    let quantity = parseInt(document.getElementById(proId).textContent);
+    count = parseInt(count);
+    $.ajax({
+      url: "/change-quantity",
+      method: "PUT",
+      data: {
+        user: userId,
+        products: proId,
+        cart: cartId,
+        count: count,
+        quantity: quantity,
+      },
 
-                    }else{
-                        let updatedQuantity=quantity+count
-                        document.getElementById(proId).innerHTML=updatedQuantity
-                        console.log(response.totalAmount[0].totalAmount);
-                        document.getElementById('totalAmount').innerHTML=response.totalAmount[0].totalAmount
-                        
-                    }
-                    
-                }
-            })
-
+      success: (response) => {
+        if (response.removed == true) {
+          alert("Do you want to remove this product from your cart ?");
+          location.reload();
+        } else {
+          let updatedQuantity = quantity + count;
+          document.getElementById(proId).innerHTML = updatedQuantity;
+          document.getElementById("totalAmount").innerHTML =
+            response.totalAmount[0].totalAmount;
         }
+      },
+    });
+  }
 
+  function removeCart(cart, product) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do You Want To Remove This Item From Cart!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "black",
+      cancelButtonColor: "#088178",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/removeCart",
+          method: "DELETE",
+          data: { cart, product },
 
+          success: (response) => {
+            if (response.removed == true) {
+              location.reload();
+            }
+          },
+        });
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  }
 
-
-        function removeCart(cart,product){
-            
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Do You Want To Remove This Item From Cart!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: 'black',
-                cancelButtonColor: '#088178',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url:"/removeCart",
-                        method:"DELETE",
-                        data:{cart,product},
-
-                        success:(response)=>{
-                            if(response.removed==true){
-                                location.reload()
-                            }
-                        }
-
-                    })
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                            'success'
-                        )
-                }
-            })
+  function ValidateCoupon() {
+    let coupenName = document.getElementById("Coupon").value;
+    $.ajax({
+      url: "/validate-coupon?couponName=" + coupenName,
+      method: "POST",
+      success: (response) => {
+        if (response.discountAmount && response.couponTotal) {
+          document.getElementById("discountAmount").innerHTML =
+            "-" + response?.discountAmount;
+          document.getElementById("grand-total").innerHTML =
+            response?.couponTotal;
+          document.getElementById("successMesage").innerHTML =
+            response?.success;
         }
+        const checkTotalInput = document.getElementById("checkTotal");
+        const couponNameInput = document.getElementById("couponName");
+        const couponDiscountInput = document.getElementById(
+          "couponDiscountAmount"
+        );
 
-
-
-
-        function ValidateCoupon(){
-            console.log('dsjf');
-            let coupenName=document.getElementById('Coupon').value
-            $.ajax({
-                url:'/validate-coupon?couponName='+coupenName,
-                method:'POST',
-                success:(response)=>{
-                    if (response.discountAmount && response.couponTotal) {
-                    document.getElementById('discountAmount').innerHTML = "-" + (response?.discountAmount)
-                    document.getElementById('grand-total').innerHTML = response?.couponTotal
-                    document.getElementById('successMesage').innerHTML = response?.success
-                    }
-                    const checkTotalInput = document.getElementById('checkTotal');
-                    const couponNameInput = document.getElementById('couponName');
-                    const couponDiscountInput = document.getElementById('couponDiscountAmount')
-
-                    checkTotalInput.value = response?.couponTotal;
-                    couponNameInput.value = coupenName;
-                    couponDiscountInput.value = response?.discountAmount;
-                    if (response.err) {
-
-                    document.getElementById('couponUsedErr').innerHTML = response.err
-
-                    }
-                }
-            })
+        checkTotalInput.value = response?.couponTotal;
+        couponNameInput.value = coupenName;
+        couponDiscountInput.value = response?.discountAmount;
+        if (response.err) {
+          document.getElementById("couponUsedErr").innerHTML = response.err;
         }
-
-    </script>
+      },
+    });
+  }
+</script>

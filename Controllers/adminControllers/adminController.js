@@ -1,5 +1,4 @@
-const adminHelpers = require("../../Helpers/adminHelpers/adminHelpers");
-const adminProductHelper=require("../../Helpers/adminHelpers/adminProductHelper")
+const adminProductHelper = require("../../Helpers/adminHelpers/adminProductHelper");
 
 const adminCredential = {
   name: "admin",
@@ -11,64 +10,65 @@ let adminStatus, admin;
 
 module.exports = {
   // get dashboard
-  getDashboard:async (req, res) => {
+  getDashboard: async (req, res) => {
     admin = req.session.admin;
-    let productsCount
-    let days=[]
-    let ordersPerDay={}
-    let paymentCount = []
-    let products=await adminProductHelper.productsCount()
-    productsCount=products.length
-    console.log(productsCount,'pcount');
+    let productsCount;
+    let days = [];
+    let ordersPerDay = {};
+    let paymentCount = [];
+    let products = await adminProductHelper.productsCount();
+    productsCount = products.length;
 
-    let orderByCOD=await adminProductHelper.orderByCOD()
-    let codCount=orderByCOD.length
-    console.log(codCount,'c count');
+    let orderByCOD = await adminProductHelper.orderByCOD();
+    let codCount = orderByCOD.length;
 
-    let orderByRazorpay=await adminProductHelper.orderByRazorpay()
-    let RazorpayCount=orderByRazorpay.length
-    console.log(RazorpayCount);
+    let orderByRazorpay = await adminProductHelper.orderByRazorpay();
+    let RazorpayCount = orderByRazorpay.length;
 
-    paymentCount.push(codCount)
-    paymentCount.push(RazorpayCount)
+    paymentCount.push(codCount);
+    paymentCount.push(RazorpayCount);
 
-    let categorys=await adminProductHelper.categorys()
-    let categoryCount=categorys.length
+    let categorys = await adminProductHelper.categorys();
+    let categoryCount = categorys.length;
 
-    await adminProductHelper.getOrderByDate().then((response)=>{
-      if(response.length>0){
-        console.log(response);
-        let result=response[0]?.orders
-        for(let i=0;i<result.length;i++){
-          let ans={}
-          ans['orderedDate']=result[i].orderedDate
-          days.push(ans)
-          ans={}
+    await adminProductHelper.getOrderByDate().then((response) => {
+      if (response.length > 0) {
+        let result = response[0]?.orders;
+        for (let i = 0; i < result.length; i++) {
+          let ans = {};
+          ans["orderedDate"] = result[i].orderedDate;
+          days.push(ans);
+          ans = {};
         }
       }
-      console.log(days,"day");
 
-      days.forEach((order)=>{
-        const day = order.orderedDate.toLocaleDateString('en-US', { weekday: 'long' });
+      days.forEach((order) => {
+        const day = order.orderedDate.toLocaleDateString("en-US", {
+          weekday: "long",
+        });
         ordersPerDay[day] = (ordersPerDay[day] || 0) + 1;
-        // console.log(day,'day');
-        console.log(ordersPerDay);
-      })
-    })
+      });
+    });
 
-    adminProductHelper.getAllOrders().then((response)=>{
-      let orderCount=response.length
+    adminProductHelper.getAllOrders().then((response) => {
+      let orderCount = response.length;
 
-      let total=0
-      for(let i=0;i<orderCount;i++){
-        total+=response[i].orders.totalAmount
+      let total = 0;
+      for (let i = 0; i < orderCount; i++) {
+        total += response[i].orders.totalAmount;
       }
-      console.log(total);
 
-      res.render("admin/dashboard", { layout: "admin-layout", admin ,orderCount,total,ordersPerDay,paymentCount,productsCount,categoryCount});
-    })
-
-
+      res.render("admin/dashboard", {
+        layout: "admin-layout",
+        admin,
+        orderCount,
+        total,
+        ordersPerDay,
+        paymentCount,
+        productsCount,
+        categoryCount,
+      });
+    });
   },
 
   //GET LOGIN

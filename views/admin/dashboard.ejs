@@ -128,9 +128,13 @@
         <!-- Statistics -->
         <div class="row match-height">
           <div class="col-xl-6 col-lg-12">
-            <div class="card" style="height: 415px;">
-              <div style="background-color: #18334f;" class="card-header">
-                <h4  style="color: aliceblue;"  class="card-title" id="heading-multiple-thumbnails">
+            <div class="card" style="height: 415px">
+              <div style="background-color: #18334f" class="card-header">
+                <h4
+                  style="color: aliceblue"
+                  class="card-title"
+                  id="heading-multiple-thumbnails"
+                >
                   SALES STATISTICS
                 </h4>
               </div>
@@ -167,28 +171,26 @@
       <%=JSON.stringify(locals.paymentCount) %>
     </p>
   </div>
-  
 </body>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
 <script>
-document.write(new Date());
+  document.write(new Date());
 
   // Sample data
   var xValues = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
   var yValues = [0, 5, 10, 15, 20, 25, 50];
   var buyed = [];
-  let daysData = JSON.parse(document.getElementById('days').innerHTML);
+  let daysData = JSON.parse(document.getElementById("days").innerHTML);
 
   for (let i = 0; i < xValues.length; i++) {
     if (xValues[i] in daysData) {
@@ -198,18 +200,18 @@ document.write(new Date());
     }
   }
 
-  new Chart('myChart1', {
-    type: 'bar',
+  new Chart("myChart1", {
+    type: "bar",
     data: {
       labels: xValues,
       datasets: [
         {
           fill: false,
           lineTension: 0,
-          backgroundColor: '#088178',
-          borderColor: 'rgba(0,0,255,0.1)',
+          backgroundColor: "#088178",
+          borderColor: "rgba(0,0,255,0.1)",
           data: buyed,
-          label: 'Sales',
+          label: "Sales",
         },
       ],
     },
@@ -221,17 +223,16 @@ document.write(new Date());
     },
   });
 
-  var xValue = [ 'COD','Razorpay'];
+  var xValue = ["COD", "Razorpay"];
   var yValue = [];
-  let paymentData = JSON.parse(document.getElementById('payment').innerHTML);
+  let paymentData = JSON.parse(document.getElementById("payment").innerHTML);
   yValue.push(paymentData[0]);
   yValue.push(paymentData[1]);
-  
 
-  var barColors = ['#088178', '#18334f'];
+  var barColors = ["#088178", "#18334f"];
 
-  new Chart('myChart2', {
-    type: 'pie',
+  new Chart("myChart2", {
+    type: "pie",
     data: {
       labels: xValue,
       datasets: [
@@ -244,9 +245,8 @@ document.write(new Date());
     options: {
       title: {
         display: true,
-        text: 'Payment mode',
+        text: "Payment mode",
       },
     },
   });
-
 </script>
