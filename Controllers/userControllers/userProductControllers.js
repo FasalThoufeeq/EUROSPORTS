@@ -344,6 +344,7 @@ module.exports = {
   },
 
   postOrder: async (req, res) => {
+    console.log(req.body);
     try {
       let totalAmount = await productHelper.totalAmount(req.session.user._id);
       totalAmount = totalAmount[0]?.totalAmount;
