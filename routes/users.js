@@ -144,7 +144,7 @@ router.post(
 );
 
 router.post(
-  "/check_out",
+  "/check_out_post",
   authentication.userAuthentication,
   isBlock.isBlocked,
   userProductController.postOrder

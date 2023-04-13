@@ -218,7 +218,7 @@
     $('#checkout').submit((e) => {
       e.preventDefault();
       $.ajax({
-        url: '/check_out',
+        url: '/check_out_post',
         method: 'post',
         data: $('#checkout').serialize(),
         success: (response) => {
