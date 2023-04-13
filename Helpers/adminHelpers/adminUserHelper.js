@@ -7,40 +7,52 @@ module.exports = {
   //get users liist
   getUsersList: () => {
     return new Promise(async (resolve, reject) => {
-      const users = await db
-        .get()
-        .collection(collection.USER_COLLECTION)
-        .find()
-        .toArray();
-      resolve(users);
+      try {
+        const users = await db
+          .get()
+          .collection(collection.USER_COLLECTION)
+          .find()
+          .toArray();
+        resolve(users);
+      } catch {
+        reject();
+      }
     });
   },
 
   //block user
   blockUser: (id) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.USER_COLLECTION)
-        .updateOne(
-          { _id: new ObjectId(id) },
+      try {
+        db.get()
+          .collection(collection.USER_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(id) },
 
-          { $set: { blocked: true } }
-        )
+            { $set: { blocked: true } }
+          )
 
-        .then((response) => {
-          resolve(response);
-        });
+          .then((response) => {
+            resolve(response);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   UnBlockUser: (id) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.USER_COLLECTION)
-        .updateOne({ _id: new ObjectId(id) }, { $set: { blocked: false } })
-        .then((response) => {
-          resolve(response);
-        });
+      try {
+        db.get()
+          .collection(collection.USER_COLLECTION)
+          .updateOne({ _id: new ObjectId(id) }, { $set: { blocked: false } })
+          .then((response) => {
+            resolve(response);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 };

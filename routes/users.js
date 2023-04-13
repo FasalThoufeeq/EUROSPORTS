@@ -74,7 +74,7 @@ router.delete(
 
 router.get("/shop", userProductController.getShop);
 
-router.get("/shop-details/:id", userProductController.getProductDetails);
+router.get("/shop-details/:slug", userProductController.getProductDetails);
 
 router.get("/category-show/:id", userProductController.categoryShow);
 

@@ -1,418 +1,536 @@
 const db = require("../../config/connection");
 const collection = require("../../config/collections");
 const { ObjectId } = require("mongodb-legacy");
-const { resolve } = require("promise");
+const { resolve, reject } = require("promise");
 const voucher_codes = require("voucher-code-generator");
 
 module.exports = {
   //get product view
   getViewProduct: () => {
     return new Promise(async (resolve, reject) => {
-      let products = await db
-        .get()
-        .collection(collection.PRODUCT_COLLECTION)
-        .aggregate([
-          {
-            $lookup: {
-              from: "category",
-              localField: "category",
-              foreignField: "_id",
-              as: "catDetails",
+      try {
+        let products = await db
+          .get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .aggregate([
+            {
+              $lookup: {
+                from: "category",
+                localField: "category",
+                foreignField: "_id",
+                as: "catDetails",
+              },
             },
-          },
-        ])
-        .toArray();
-      resolve(products);
+          ])
+          .toArray();
+        resolve(products);
+      } catch {
+        reject();
+      }
     });
   },
 
   //get add product
   getAddProduct: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .find()
-        .toArray()
-        .then((categorys) => {
-          resolve(categorys);
-        });
+      try {
+        db.get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .find()
+          .toArray()
+          .then((categorys) => {
+            resolve(categorys);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   //post add product
   addProducts: (products) => {
     return new Promise(async (resolve, reject) => {
-      products.price = Number(products.price);
-      products.quantity = Number(products.quantity);
-      products.list = true;
-      let category = await db
-        .get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .findOne({ categoryname: products.category });
-      products.category = category._id;
+      try {
+        products.price = Number(products.price);
+        products.quantity = Number(products.quantity);
+        products.list = true;
+        let category = await db
+          .get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .findOne({ categoryname: products.category });
+        products.category = category._id;
 
-      db.get()
-        .collection(collection.PRODUCT_COLLECTION)
-        .insertOne(products)
-        .then((productDetails) => {
-          resolve(productDetails.insertedId);
-        });
+        db.get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .insertOne(products)
+          .then((productDetails) => {
+            resolve(productDetails.insertedId);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   addProductImage: (productId, imgUrls) => {
-    db.get()
-      .collection(collection.PRODUCT_COLLECTION)
-      .updateOne(
-        { _id: new ObjectId(productId) },
-        { $set: { image: imgUrls } }
-      );
+    return new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(productId) },
+            { $set: { image: imgUrls } }
+          );
+      } catch {
+        reject();
+      }
+    });
   },
 
   //get add category
   getAddCategory: () => {
     return new Promise(async (resolve, reject) => {
-      let category = await db
-        .get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .find()
-        .toArray();
+      try {
+        let category = await db
+          .get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .find()
+          .toArray();
 
-      resolve(category);
+        resolve(category);
+      } catch {
+        reject();
+      }
     });
   },
 
   //post category
   postAddCategory: (category) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .insertOne(category)
-        .then(() => {
-          resolve();
-        });
+      try {
+        db.get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .insertOne(category)
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   editCatergory: (categoryId) => {
     return new Promise(async (resolve, reject) => {
-      await db
-        .get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .findOne({ _id: new ObjectId(categoryId) })
-        .then((response) => {
-          resolve(response);
-        });
+      try {
+        await db
+          .get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .findOne({ _id: new ObjectId(categoryId) })
+          .then((response) => {
+            resolve(response);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   //post edited category
   postEditCategory: (categoryname, categoryId) => {
     return new Promise(async (resolve, reject) => {
-      await db
-        .get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .updateOne(
-          { _id: new ObjectId(categoryId) },
-          { $set: { categoryname: categoryname } }
-        )
-        .then(() => {
-          resolve();
-        });
+      try {
+        await db
+          .get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(categoryId) },
+            { $set: { categoryname: categoryname } }
+          )
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   //delete category
   deleteCategory: (categoryId) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .deleteOne({ _id: new ObjectId(categoryId) })
-        .then(() => {
-          resolve();
-        });
+      try {
+        db.get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .deleteOne({ _id: new ObjectId(categoryId) })
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   //get edit ptoduct
   getEditProduct: (productId) => {
     return new Promise((resolve, reject) => {
-      let product = db
-        .get()
-        .collection(collection.PRODUCT_COLLECTION)
-        .findOne({ _id: new ObjectId(productId) });
-      resolve(product);
+      try {
+        let product = db
+          .get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .findOne({ _id: new ObjectId(productId) });
+        resolve(product);
+      } catch {
+        reject();
+      }
     });
   },
 
   //post edit product
   postEditProduct: (productId, editedDetails) => {
     return new Promise((resolve, reject) => {
-      editedDetails.price = Number(editedDetails.price);
-      editedDetails.quantity = Number(editedDetails.quantity);
-      db.get()
-        .collection(collection.PRODUCT_COLLECTION)
-        .updateOne(
-          { _id: new ObjectId(productId) },
-          {
-            $set: {
-              productname: editedDetails.productname,
-              description: editedDetails.description,
-              price: editedDetails.price,
-              quantity: editedDetails.quantity,
-              category: new ObjectId(editedDetails.category),
-            },
-          }
-        )
-        .then(() => {
-          resolve();
-        });
+      try {
+        editedDetails.price = Number(editedDetails.price);
+        editedDetails.quantity = Number(editedDetails.quantity);
+        db.get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(productId) },
+            {
+              $set: {
+                productname: editedDetails.productname,
+                description: editedDetails.description,
+                price: editedDetails.price,
+                quantity: editedDetails.quantity,
+                category: new ObjectId(editedDetails.category),
+                slug:editedDetails.slug
+              },
+            }
+          )
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   //list
   listProduct: (productId) => {
-    db.get()
-      .collection(collection.PRODUCT_COLLECTION)
-      .updateOne({ _id: new ObjectId(productId) }, { $set: { list: true } })
-      .then(() => {
-        resolve();
-      });
+    return new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .updateOne({ _id: new ObjectId(productId) }, { $set: { list: true } })
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
+    });
   },
   //unlist
   unlistProduct: (productId) => {
-    db.get()
-      .collection(collection.PRODUCT_COLLECTION)
-      .updateOne({ _id: new ObjectId(productId) }, { $set: { list: false } })
-      .then(() => {
-        resolve();
-      });
+    return new Promise((resolve, reject) => {
+      try {
+        db.get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(productId) },
+            { $set: { list: false } }
+          )
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
+    });
   },
 
   getOrderDetailsCount: () => {
     return new Promise(async (resolve, reject) => {
-      let count = await db
-        .get()
-        .collection(collection.ORDER_COLLECTION)
-        .find()
-        .toArray();
-      let length = count.length;
-      let total = 0;
-      for (let i = 0; i < length; i++) {
-        total += count[i].orders.length;
+      try {
+        let count = await db
+          .get()
+          .collection(collection.ORDER_COLLECTION)
+          .find()
+          .toArray();
+        let length = count.length;
+        let total = 0;
+        for (let i = 0; i < length; i++) {
+          total += count[i].orders.length;
+        }
+        resolve(total);
+      } catch {
+        reject();
       }
-      resolve(total);
     });
   },
 
   getOrdersList: (page) => {
     return new Promise(async (resolve, reject) => {
-      let pageNumber;
-      if (page) {
-        pageNumber = page;
-      } else {
-        pageNumber = 1;
+      try {
+        let pageNumber;
+        if (page) {
+          pageNumber = page;
+        } else {
+          pageNumber = 1;
+        }
+        let perPageCount = 8;
+
+        let orders = await db
+          .get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            { $unwind: "$orders" },
+
+            { $sort: { "orders.orderedDate": -1 } },
+
+            { $skip: (pageNumber - 1) * perPageCount },
+
+            { $limit: perPageCount },
+          ])
+          .toArray();
+
+        resolve(orders);
+      } catch {
+        reject();
       }
-      let perPageCount = 8;
-
-      let orders = await db
-        .get()
-        .collection(collection.ORDER_COLLECTION)
-        .aggregate([
-          { $unwind: "$orders" },
-
-          { $sort: { "orders.orderedDate": -1 } },
-
-          { $skip: (pageNumber - 1) * perPageCount },
-
-          { $limit: perPageCount },
-        ])
-        .toArray();
-
-      resolve(orders);
     });
   },
 
   getOrderDetails: (OrderId) => {
     return new Promise(async (resolve, reject) => {
-      let order = await db
-        .get()
-        .collection(collection.ORDER_COLLECTION)
-        .aggregate([
-          { $match: { "orders._id": new ObjectId(OrderId) } },
+      try {
+        let order = await db
+          .get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            { $match: { "orders._id": new ObjectId(OrderId) } },
 
-          { $unwind: "$orders" },
+            { $unwind: "$orders" },
 
-          { $match: { "orders._id": new ObjectId(OrderId) } },
-        ])
-        .toArray();
+            { $match: { "orders._id": new ObjectId(OrderId) } },
+          ])
+          .toArray();
 
-      resolve(order);
+        resolve(order);
+      } catch {
+        reject();
+      }
     });
   },
 
   postOrderDetails: (body, OrderId) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.ORDER_COLLECTION)
-        .updateOne(
-          { "orders._id": new ObjectId(OrderId) },
-          { $set: { "orders.$.orderStatus": body.status } }
-        )
-        .then(() => {
-          resolve();
-        });
+      try {
+        db.get()
+          .collection(collection.ORDER_COLLECTION)
+          .updateOne(
+            { "orders._id": new ObjectId(OrderId) },
+            { $set: { "orders.$.orderStatus": body.status } }
+          )
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   postBannner: (texts) => {
     return new Promise((resolve, reject) => {
-      let bannerObj = {
-        title: texts.title,
-        description: texts.description,
-        link: texts.link,
-      };
-      db.get()
-        .collection(collection.BANNER_COLLECTION)
-        .insertOne(bannerObj)
-        .then((bannerDrtails) => {
-          resolve(bannerDrtails.insertedId);
-        });
+      try {
+        let bannerObj = {
+          title: texts.title,
+          description: texts.description,
+          link: texts.link,
+        };
+        db.get()
+          .collection(collection.BANNER_COLLECTION)
+          .insertOne(bannerObj)
+          .then((bannerDrtails) => {
+            resolve(bannerDrtails.insertedId);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   addBannerImg: (imageUrl, bannerId) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.BANNER_COLLECTION)
-        .updateOne(
-          { _id: new ObjectId(bannerId) },
-          { $set: { image: imageUrl } }
-        );
+      try {
+        db.get()
+          .collection(collection.BANNER_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(bannerId) },
+            { $set: { image: imageUrl } }
+          );
+      } catch {
+        reject();
+      }
     });
   },
 
   getAllBanner: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.BANNER_COLLECTION)
-        .find()
-        .toArray()
-        .then((banners) => {
-          resolve(banners);
-        });
+      try {
+        db.get()
+          .collection(collection.BANNER_COLLECTION)
+          .find()
+          .toArray()
+          .then((banners) => {
+            resolve(banners);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   editBanner: (texts, bannerId) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.BANNER_COLLECTION)
-        .updateOne(
-          { _id: new ObjectId(bannerId) },
-          {
-            $set: {
-              title: texts.title,
-              description: texts.description,
-              link: texts.link,
-            },
-          }
-        )
-        .then(() => {
-          resolve();
-        });
+      try {
+        db.get()
+          .collection(collection.BANNER_COLLECTION)
+          .updateOne(
+            { _id: new ObjectId(bannerId) },
+            {
+              $set: {
+                title: texts.title,
+                description: texts.description,
+                link: texts.link,
+              },
+            }
+          )
+          .then(() => {
+            resolve();
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   productsCount: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.PRODUCT_COLLECTION)
-        .find()
-        .toArray()
-        .then((products) => {
-          resolve(products);
-        });
+      try {
+        db.get()
+          .collection(collection.PRODUCT_COLLECTION)
+          .find()
+          .toArray()
+          .then((products) => {
+            resolve(products);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   orderByCOD: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.ORDER_COLLECTION)
-        .aggregate([
-          { $unwind: "$orders" },
+      try {
+        db.get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            { $unwind: "$orders" },
 
-          { $match: { "orders.paymentMethod": "COD" } },
-        ])
-        .toArray()
-        .then((orderByCOD) => {
-          resolve(orderByCOD);
-        });
+            { $match: { "orders.paymentMethod": "COD" } },
+          ])
+          .toArray()
+          .then((orderByCOD) => {
+            resolve(orderByCOD);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   orderByRazorpay: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.ORDER_COLLECTION)
-        .aggregate([
-          { $unwind: "$orders" },
+      try {
+        db.get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            { $unwind: "$orders" },
 
-          { $match: { "orders.paymentMethod": "Razorpay" } },
-        ])
-        .toArray()
-        .then((orderByRazorpay) => {
-          resolve(orderByRazorpay);
-        });
+            { $match: { "orders.paymentMethod": "Razorpay" } },
+          ])
+          .toArray()
+          .then((orderByRazorpay) => {
+            resolve(orderByRazorpay);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   getOrderByDate: () => {
     return new Promise((resolve, reject) => {
-      const startDate = new Date("2022-01-01");
-      db.get()
-        .collection(collection.ORDER_COLLECTION)
-        .find({ "orders.orderedDate": { $gte: startDate } })
-        .toArray()
-        .then((orderDate) => {
-          resolve(orderDate);
-        });
+      try {
+        const startDate = new Date("2022-01-01");
+        db.get()
+          .collection(collection.ORDER_COLLECTION)
+          .find({ "orders.orderedDate": { $gte: startDate } })
+          .toArray()
+          .then((orderDate) => {
+            resolve(orderDate);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   getAllOrders: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.ORDER_COLLECTION)
-        .aggregate([
-          { $unwind: "$orders" },
+      try {
+        db.get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            { $unwind: "$orders" },
 
-          {
-            $match: {
-              $or: [
-                { "orders.orderStatus": "Success" },
-                { "orders.orderStatus": "Delivered" },
-              ],
+            {
+              $match: {
+                $or: [
+                  { "orders.orderStatus": "Success" },
+                  { "orders.orderStatus": "Delivered" },
+                ],
+              },
             },
-          },
-        ])
-        .toArray()
-        .then((response) => {
-          resolve(response);
-        });
+          ])
+          .toArray()
+          .then((response) => {
+            resolve(response);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   categorys: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.CATEGORY_COLLECTION)
-        .find()
-        .toArray()
-        .then((categorys) => {
-          resolve(categorys);
-        });
+      try {
+        db.get()
+          .collection(collection.CATEGORY_COLLECTION)
+          .find()
+          .toArray()
+          .then((categorys) => {
+            resolve(categorys);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
@@ -427,70 +545,87 @@ module.exports = {
         });
         resolve({ status: true, couponCode: couponCode[0] });
       } catch (err) {
-        console.log(err);
+        reject(err);
       }
     });
   },
 
   addCoupon: (data) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.COUPON_COLLECTION)
-        .insertOne(data)
-        .then(() => {
-          resolve({ status: true });
-        });
+      try {
+        db.get()
+          .collection(collection.COUPON_COLLECTION)
+          .insertOne(data)
+          .then(() => {
+            resolve({ status: true });
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   getAllCoupon: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.COUPON_COLLECTION)
-        .find()
-        .toArray()
-        .then((coupons) => {
-          resolve(coupons);
-        });
+      try {
+        db.get()
+          .collection(collection.COUPON_COLLECTION)
+          .find()
+          .toArray()
+          .then((coupons) => {
+            resolve(coupons);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   deleteCoupon: (couponId) => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.COUPON_COLLECTION)
-        .deleteOne({ _id: new ObjectId(couponId) })
-        .then((response) => {
-          resolve(response);
-        });
+      try {
+        db.get()
+          .collection(collection.COUPON_COLLECTION)
+          .deleteOne({ _id: new ObjectId(couponId) })
+          .then((response) => {
+            resolve(response);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   getReport: () => {
     return new Promise((resolve, reject) => {
-      db.get()
-        .collection(collection.ORDER_COLLECTION)
-        .aggregate([
-          { $unwind: "$orders" },
+      try {
+        db.get()
+          .collection(collection.ORDER_COLLECTION)
+          .aggregate([
+            { $unwind: "$orders" },
 
-          {
-            $match: {
-              $or: [
-                { "orders.orderStatus": "Delivered" },
-                { "orders.orderStatus": "Success" },
-              ],
+            {
+              $match: {
+                $or: [
+                  { "orders.orderStatus": "Delivered" },
+                  { "orders.orderStatus": "Success" },
+                ],
+              },
             },
-          },
-        ])
-        .toArray()
-        .then((report) => {
-          resolve(report);
-        });
+          ])
+          .toArray()
+          .then((report) => {
+            resolve(report);
+          });
+      } catch {
+        reject();
+      }
     });
   },
 
   postSalesPeriod: (body) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => { 
+      try{
       let start = new Date(body.startdate);
       let end = new Date(body.enddate);
       db.get()
@@ -512,6 +647,10 @@ module.exports = {
         .then((report) => {
           resolve(report);
         });
+      }
+      catch{
+        reject();
+      }
     });
   },
 };

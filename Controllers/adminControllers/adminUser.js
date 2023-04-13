@@ -3,22 +3,49 @@ const adminUserHelper = require("../../Helpers/adminHelpers/adminUserHelper");
 module.exports = {
   //get user view
   getUserView: (req, res) => {
-    adminUserHelper.getUsersList().then((users) => {
-      res.render("admin/view-users", { layout: "admin-layout", users });
-    });
+    try {
+      adminUserHelper
+        .getUsersList()
+        .then((users) => {
+          res.render("admin/view-users", { layout: "admin-layout", users });
+        })
+        .catch(() => {
+          res.render("error");
+        });
+    } catch {
+      res.render("error");
+    }
   },
 
   //blockUser
   getUserBlock: (req, res) => {
-    adminUserHelper.blockUser(req.params.id).then(() => {
-      res.redirect("/admin/view-users");
-    });
+    try {
+      adminUserHelper
+        .blockUser(req.params.id)
+        .then(() => {
+          res.redirect("/admin/view-users");
+        })
+        .catch(() => {
+          res.render("error");
+        });
+    } catch {
+      res.render("error");
+    }
   },
 
   //unBlock user
   getUserUnblock: (req, res) => {
-    adminUserHelper.UnBlockUser(req.params.id).then(() => {
-      res.redirect("/admin/view-users");
-    });
+    try {
+      adminUserHelper
+        .UnBlockUser(req.params.id)
+        .then(() => {
+          res.redirect("/admin/view-users");
+        })
+        .catch(() => {
+          res.render("error");
+        });
+    } catch {
+      res.render("error");
+    }
   },
 };
