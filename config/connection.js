@@ -4,8 +4,7 @@ const state = {
 };
 
 module.exports.connect = (done) => {
-  const url =
-    "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1";
+  const url =process.env.MONGO_URI
   const dbname = "EUROSPORTS";
 
   mongoClient.connect(url, (err, data) => {
