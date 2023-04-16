@@ -59,9 +59,7 @@
               <div class="product__details__pic__item" id="img-container">
                 <img
                   src="<%= product.image[0] %>"
-                  style="transition: transform 0.3s ease-in-out"
-                  onmouseover="this.style.transform='scale(1.6)' "
-                  onmouseout="this.style.transform='scale(1)'"
+                  class="zoom_03"
                   alt=""
                 />
               </div>
@@ -70,9 +68,7 @@
               <div class="product__details__pic__item">
                 <img
                   src="<%= product.image[1] %>"
-                  style="transition: transform 0.3s ease-in-out"
-                  onmouseover="this.style.transform='scale(1.6)'"
-                  onmouseout="this.style.transform='scale(1)'"
+                  class="zoom_03"
                   alt=""
                 />
               </div>
@@ -81,9 +77,7 @@
               <div class="product__details__pic__item">
                 <img
                   src="<%= product.image[2] %>"
-                  style="transition: transform 0.3s ease-in-out"
-                  onmouseover="this.style.transform='scale(1.6)'"
-                  onmouseout="this.style.transform='scale(1)'"
+                  class="zoom_03"
                   alt=""
                 />
               </div>
@@ -92,9 +86,7 @@
               <div class="product__details__pic__item">
                 <img
                   src="<%= product.image[3] %>"
-                  style="transition: transform 0.3s ease-in-out"
-                  onmouseover="this.style.transform='scale(1.6)'"
-                  onmouseout="this.style.transform='scale(1)'"
+                  class="zoom_03"
                   alt=""
                 />
               </div>
@@ -197,4 +189,8 @@
       },
     });
   }
+ $(".zoom_03").elevateZoom({
+   cursor: 'pointer',
+   easing : true,
+});
 </script>
